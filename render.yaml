@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: sigilopay-integration
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: SIGILOPAY_BASE_URL
+        value: https://api.sigilopay.com.br
+      - key: SIGILOPAY_CLIENT_ID
+        sync: false
+      - key: SIGILOPAY_CLIENT_SECRET
+        sync: false
+      - key: SIGILOPAY_AUTH_MODE
+        value: basic
+      - key: SIGILOPAY_PIX_PATH
+        value: /v1/pix/charge
+      - key: SIGILOPAY_STATUS_PATH
+        value: /v1/pix/charge

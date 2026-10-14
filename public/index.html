@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SigiloPay Integration</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0c0d12; --panel:#151720; --line:#2a2d3a; --text:#f5f6fa; --muted:#a5a9bb; --accent:#8b5cf6; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px; background:radial-gradient(ellipse at top,#21153b 0,transparent 50%),var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif; }
+    main { width:min(100%,680px); border:1px solid var(--line); border-radius:20px; padding:clamp(22px,5vw,40px); background:rgba(21,23,32,.96); box-shadow:0 24px 80px #0007; }
+    .mark { display:inline-grid; place-items:center; width:46px; height:46px; border-radius:14px; background:#8b5cf622; color:#c4b5fd; font-weight:800; font-size:23px; }
+    h1 { margin:18px 0 8px; font-size:clamp(25px,5vw,34px); letter-spacing:-.04em; }
+    p { color:var(--muted); margin:0 0 22px; }
+    .status { display:flex; align-items:center; gap:10px; padding:14px 16px; border:1px solid var(--line); border-radius:12px; background:#0e1017; }
+    .dot { width:9px; height:9px; border-radius:50%; background:#34d399; box-shadow:0 0 12px #34d39977; }
+    code { color:#c4b5fd; }
+    .links { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+    a { color:#ddd6fe; text-decoration:none; border:1px solid #49405f; padding:10px 14px; border-radius:10px; }
+    a:hover { background:#8b5cf622; }
+    small { display:block; margin-top:24px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">S</div>
+    <h1>SigiloPay Integration</h1>
+    <p>Serviço de integração para criação e consulta de cobranças PIX.</p>
+    <div class="status"><span class="dot"></span><span>Aplicação iniciada. Verifique o endpoint de saúde e configure as credenciais no ambiente de hospedagem.</span></div>
+    <div class="links">
+      <a href="/health">Verificar saúde da API</a>
+      <a href="/api/debug">Diagnóstico da API SigiloPay</a>
+    </div>
+    <small>Este é um painel básico de status, não uma página de checkout. Os endpoints de pagamento precisam ser integrados ao seu fluxo de vendas.</small>
+  </main>
+</body>
+</html>
