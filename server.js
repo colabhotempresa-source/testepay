@@ -9,25 +9,20 @@ const app = express();
 app.use(express.json({ limit: '1mb' }));
 
 // ============================================================
-//  CONFIG — domínio corrigido
+//  CONFIG — SigiloPay
 // ============================================================
-const CONFIG = {
-  baseUrl: process.env.SIGILOPAY_BASE_URL || 'https://app.sigilopay.com.br',
-  clientId: 'lpaulohenrique93_zzh95kzihjcs7m2p',
-  clientSecret: 'm7nfb0didp313whvwwkgcl5hw3unw8xv750fmc9jof0l02ba0c4p15ed1fga996d',
-  authMode: process.env.SIGILOPAY_AUTH_MODE || 'basic',
+const SIGILO = {
+  baseUrl: 'https://app.sigilopay.com.br/api/v1',
+  publicKey: 'lpaulohenrique93_zzh95kzihjcs7m2p',
+  secretKey: 'm7nfb0didp313whvwwkgcl5hw3unw8xv750fmc9jof0l02ba0c4p15ed1fga996d',
 };
-
-function basicAuthHeader() {
-  return 'Basic ' + Buffer.from(`${CONFIG.clientId}:${CONFIG.clientSecret}`).toString('base64');
-}
 
 function buildHeaders() {
   return {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': basicAuthHeader(),
-    'User-Agent': 'ColabHotPro/1.0',
+    'x-public-key': SIGILO.publicKey,
+    'x-secret-key': SIGILO.secretKey,
   };
 }
 
@@ -35,217 +30,178 @@ function buildHeaders() {
 //  HEALTH
 // ============================================================
 app.get('/health', (req, res) => {
-  res.json({ ok: true, ts: Date.now(), clientId: CONFIG.clientId });
+  res.json({ ok: true, ts: Date.now(), baseUrl: SIGILO.baseUrl });
 });
 
 // ============================================================
-//  DEBUG — testa vários caminhos candidatos
+//  DEBUG — testa credenciais e conectividade
 // ============================================================
 app.get('/api/debug', async (req, res) => {
-  const candidates = [
-    '/',
-    '/docs/v1',
-    '/docs',
-    '/api',
-    '/api/v1',
-    '/api/v1/',
-    '/api/v1/pix',
-    '/api/v1/pix/charge',
-    '/api/v1/pix/create',
-    '/api/v1/transactions',
-    '/api/v1/charges',
-    '/api/v1/payments',
-    '/api/pix',
-    '/api/pix/create',
-    '/api/pix/charge',
-    '/api/transactions',
-    '/api/charges',
-    '/api/payments',
-    '/v1',
-    '/v1/',
-    '/v1/pix',
-    '/v1/pix/charge',
-    '/v1/pix/create',
-    '/v1/transactions',
-    '/v1/charges',
-    '/v1/payments',
-    '/pix',
-    '/pix/charge',
-    '/pix/create',
-    '/transactions',
-    '/charges',
-    '/payments',
-    '/gateway',
-    '/gateway/pix',
-    '/gateway/pix/receive',
-    '/gateway/transactions',
-  ];
+  const out = { baseUrl: SIGILO.baseUrl, tests: [] };
 
-  const out = {
-    baseUrl: CONFIG.baseUrl,
-    authMode: CONFIG.authMode,
-    clientId: CONFIG.clientId,
-    hasSecret: !!CONFIG.clientSecret,
-    tested: candidates.length,
-    hits: [],      // só os que responderam
-    misses: [],    // os que falharam
-  };
-
-  for (const p of candidates) {
-    const url = CONFIG.baseUrl + p;
-    try {
-      const r = await fetch(url, {
-        method: 'GET',
-        headers: buildHeaders(),
-        redirect: 'manual',
-      });
-      const txt = await r.text();
-      const entry = {
-        path: p,
-        status: r.status,
-        statusText: r.statusText,
-        body: txt.slice(0, 180),
-      };
-      // 401/403 = existe mas auth errada (bom sinal!)
-      // 404/405 = existe a rota mas método/caminho errado
-      // 200 = existe e funciona
-      if ([200, 201, 400, 401, 403, 405, 422].includes(r.status)) {
-        out.hits.push(entry);
-      } else {
-        out.misses.push(entry);
-      }
-    } catch (e) {
-      out.misses.push({ path: p, error: String(e).slice(0, 100) });
-    }
+  // 1) Testa credenciais (rota oficial de teste)
+  try {
+    const r = await fetch(`${SIGILO.baseUrl}/gateway/producer/credentials`, {
+      headers: buildHeaders(),
+    });
+    const txt = await r.text();
+    let d; try { d = JSON.parse(txt); } catch { d = { raw: txt }; }
+    out.tests.push({
+      step: 'credentials',
+      url: `${SIGILO.baseUrl}/gateway/producer/credentials`,
+      status: r.status,
+      body: d,
+    });
+  } catch (e) {
+    out.tests.push({ step: 'credentials', error: String(e) });
   }
+
+  // 2) Testa saldo
+  try {
+    const r = await fetch(`${SIGILO.baseUrl}/gateway/producer/balance`, {
+      headers: buildHeaders(),
+    });
+    const txt = await r.text();
+    let d; try { d = JSON.parse(txt); } catch { d = { raw: txt }; }
+    out.tests.push({
+      step: 'balance',
+      url: `${SIGILO.baseUrl}/gateway/producer/balance`,
+      status: r.status,
+      body: d,
+    });
+  } catch (e) {
+    out.tests.push({ step: 'balance', error: String(e) });
+  }
+
+  // 3) Testa dados do produtor
+  try {
+    const r = await fetch(`${SIGILO.baseUrl}/gateway/producer`, {
+      headers: buildHeaders(),
+    });
+    const txt = await r.text();
+    let d; try { d = JSON.parse(txt); } catch { d = { raw: txt }; }
+    out.tests.push({
+      step: 'producer',
+      url: `${SIGILO.baseUrl}/gateway/producer`,
+      status: r.status,
+      body: d,
+    });
+  } catch (e) {
+    out.tests.push({ step: 'producer', error: String(e) });
+  }
+
   res.json(out);
 });
 
 // ============================================================
-//  CRIAR PIX — tenta vários paths até um funcionar
+//  CRIAR PIX — POST /gateway/pix/receive
 // ============================================================
 app.post('/api/pix/create', async (req, res) => {
   try {
     const { amount, description, client, identifier } = req.body || {};
-    if (!amount || !client?.name || !client?.document) {
-      return res.status(400).json({ error: 'Dados incompletos' });
+
+    if (!amount || !client?.name || !client?.email) {
+      return res.status(400).json({
+        ok: false,
+        error: 'Dados incompletos (amount, client.name, client.email)',
+      });
     }
 
     const payload = {
       identifier: identifier || ('ID_' + Date.now()),
       amount: Number(amount),
-      description: description || 'Compra',
-      payment_method: 'pix',
-      customer: {
+      client: {
         name: client.name,
         email: client.email,
-        document: client.document,
-        phone: client.phone,
+        phone: client.phone || '',
+        document: client.document || '',
+      },
+      products: [
+        {
+          id: 'PROD_' + Date.now(),
+          name: description || 'Compra',
+          quantity: 1,
+          price: Number(amount),
+        },
+      ],
+      metadata: {
+        provider: 'ColabHotPro',
+        orderId: identifier || String(Date.now()),
       },
     };
 
-    // Tenta vários caminhos candidatos até um responder
-    const paths = [
-      '/api/v1/pix/charge',
-      '/api/v1/pix',
-      '/api/v1/pix/create',
-      '/api/v1/transactions',
-      '/api/v1/payments',
-      '/api/pix/charge',
-      '/api/pix/create',
-      '/api/pix',
-      '/v1/pix/charge',
-      '/v1/pix',
-      '/v1/transactions',
-      '/v1/payments',
-      '/pix/charge',
-      '/pix/create',
-      '/pix',
-      '/gateway/pix/receive',
-    ];
+    const url = `${SIGILO.baseUrl}/gateway/pix/receive`;
+    console.log('[pix/create] POST', url);
+    console.log('[pix/create] payload:', JSON.stringify(payload));
 
-    const attempts = [];
+    const upstream = await fetch(url, {
+      method: 'POST',
+      headers: buildHeaders(),
+      body: JSON.stringify(payload),
+    });
 
-    for (const p of paths) {
-      const url = CONFIG.baseUrl + p;
-      try {
-        const r = await fetch(url, {
-          method: 'POST',
-          headers: buildHeaders(),
-          body: JSON.stringify(payload),
-        });
-        const txt = await r.text();
-        let data;
-        try { data = JSON.parse(txt); } catch { data = { raw: txt }; }
+    const txt = await upstream.text();
+    let data;
+    try { data = JSON.parse(txt); } catch { data = { raw: txt }; }
 
-        attempts.push({ path: p, status: r.status, body: txt.slice(0, 200) });
+    console.log('[pix/create] status:', upstream.status);
+    console.log('[pix/create] response:', JSON.stringify(data));
 
-        // Se responder 200/201, achamos!
-        if (r.status === 200 || r.status === 201) {
-          const root = data.data || data;
-          const qrBase64 =
-            root.qr_code_image || root.qrCodeImage || root.qr_code_base64 ||
-            root.qrCodeBase64 || root.qr_code || root.qrCode ||
-            root.qrcode || root.qr_code_url || null;
-          const copyPaste =
-            root.pix_copia_e_cola || root.pixCopiaECola || root.qr_code_text ||
-            root.emv || root.payload || root.copy_paste || root.qr_code_string ||
-            root.brcode || root.pixCode || null;
-
-          return res.json({
-            ok: true,
-            usedPath: p,
-            transactionId: root.transactionId || root.id || root.txid || root.identifier || null,
-            qrBase64,
-            copyPaste,
-            raw: data,
-          });
-        }
-      } catch (e) {
-        attempts.push({ path: p, error: String(e).slice(0, 120) });
-      }
+    if (!upstream.ok) {
+      return res.status(upstream.status).json({
+        ok: false,
+        error: data?.message || 'SigiloPay recusou a requisição',
+        status: upstream.status,
+        sent_payload: payload,
+        response: data,
+      });
     }
 
-    // Nenhum path funcionou — devolve todos os erros para debug
-    return res.status(502).json({
-      error: 'Nenhum endpoint da SigiloPay respondeu com sucesso',
-      baseUrl: CONFIG.baseUrl,
-      sent_payload: payload,
-      attempts,
+    // Extrai QR e copia-e-cola da resposta oficial
+    const root = data.data || data;
+    const pix = root.pix || {};
+
+    const qrUrl = pix.image || null;             // URL da imagem do QR
+    const copyPaste = pix.code || null;          // Copia-e-cola PIX
+    const base64 = pix.base64 || null;           // deprecated, geralmente vazio
+
+    const transactionId =
+      root.transactionId || root.id || root.txid ||
+      root.identifier || null;
+
+    const status = root.status || root.transactionStatus || null;
+
+    return res.json({
+      ok: true,
+      transactionId,
+      status,
+      qrUrl,
+      qrBase64: base64 && base64.length > 20 ? base64 : null,
+      copyPaste,
+      expiresAt: pix.expiresAt || null,
+      fee: root.fee || null,
+      raw: data,
     });
   } catch (err) {
-    return res.status(502).json({ error: 'Erro no proxy', detail: String(err) });
+    console.error('[/api/pix/create] erro:', err);
+    return res.status(502).json({ ok: false, error: 'Erro no proxy', detail: String(err) });
   }
 });
 
 // ============================================================
-//  STATUS
+//  STATUS PIX
 // ============================================================
 app.get('/api/pix/status/:id', async (req, res) => {
-  const id = encodeURIComponent(req.params.id);
-  const paths = [
-    `/api/v1/pix/charge/${id}`,
-    `/api/v1/pix/${id}`,
-    `/api/v1/transactions/${id}`,
-    `/api/v1/payments/${id}`,
-    `/api/pix/${id}`,
-    `/v1/pix/charge/${id}`,
-    `/v1/transactions/${id}`,
-    `/pix/${id}`,
-    `/transactions/${id}`,
-  ];
-
-  for (const p of paths) {
-    try {
-      const r = await fetch(CONFIG.baseUrl + p, { headers: buildHeaders() });
-      const txt = await r.text();
-      let data; try { data = JSON.parse(txt); } catch { data = { raw: txt }; }
-      if (r.status === 200) {
-        return res.json({ ok: true, usedPath: p, raw: data });
-      }
-    } catch (_) {}
+  try {
+    const id = encodeURIComponent(req.params.id);
+    const url = `${SIGILO.baseUrl}/gateway/transactions?id=${id}`;
+    const r = await fetch(url, { headers: buildHeaders() });
+    const txt = await r.text();
+    let data; try { data = JSON.parse(txt); } catch { data = { raw: txt }; }
+    res.status(r.status).json(data);
+  } catch (err) {
+    res.status(502).json({ error: String(err) });
   }
-  return res.status(404).json({ error: 'Status não encontrado em nenhum endpoint' });
 });
 
 // ============================================================
@@ -255,4 +211,4 @@ app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] })
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`✅ Rodando na porta ${PORT} | baseUrl=${CONFIG.baseUrl}`));
+app.listen(PORT, () => console.log(`✅ Rodando na porta ${PORT} | baseUrl=${SIGILO.baseUrl}`));
