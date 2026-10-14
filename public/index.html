@@ -1,37 +1,2921 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SigiloPay Integration</title>
-  <style>
-    :root { color-scheme: dark; --bg:#0c0d12; --panel:#151720; --line:#2a2d3a; --text:#f5f6fa; --muted:#a5a9bb; --accent:#8b5cf6; }
-    * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px; background:radial-gradient(ellipse at top,#21153b 0,transparent 50%),var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif; }
-    main { width:min(100%,680px); border:1px solid var(--line); border-radius:20px; padding:clamp(22px,5vw,40px); background:rgba(21,23,32,.96); box-shadow:0 24px 80px #0007; }
-    .mark { display:inline-grid; place-items:center; width:46px; height:46px; border-radius:14px; background:#8b5cf622; color:#c4b5fd; font-weight:800; font-size:23px; }
-    h1 { margin:18px 0 8px; font-size:clamp(25px,5vw,34px); letter-spacing:-.04em; }
-    p { color:var(--muted); margin:0 0 22px; }
-    .status { display:flex; align-items:center; gap:10px; padding:14px 16px; border:1px solid var(--line); border-radius:12px; background:#0e1017; }
-    .dot { width:9px; height:9px; border-radius:50%; background:#34d399; box-shadow:0 0 12px #34d39977; }
-    code { color:#c4b5fd; }
-    .links { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
-    a { color:#ddd6fe; text-decoration:none; border:1px solid #49405f; padding:10px 14px; border-radius:10px; }
-    a:hover { background:#8b5cf622; }
-    small { display:block; margin-top:24px; color:var(--muted); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <meta name="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+    <meta name="theme-color" content="#0a0a12">
+    <meta name="color-scheme" content="dark">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://cdnjs.cloudflare.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:;
+        img-src 'self' data: https://www.facebook.com https://*.fbcdn.net https://api.qrserver.com;
+        connect-src 'self' https://www.googletagmanager.com https://connect.facebook.net https://api.qrserver.com;
+        frame-src 'self' https://www.youtube.com;
+        media-src 'self' data:;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+    ">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17691475001"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17691475001');
+    </script>
+
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '26227562986902348');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=26227562986902348&ev=PageView&noscript=1"
+    /></noscript>
+
+    <title>COLAB HOT PRO | Ferramentas Digitais Profissionais</title>
+    <meta name="description" content="Soluções digitais premium para automação, gestão e alto desempenho. Ferramentas exclusivas, segurança total e entrega automática.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="img23.png" type="image/png">
+
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #5b21b6;
+            --primary-light: #a78bfa;
+            --primary-glow: rgba(124, 58, 237, 0.3);
+            --secondary: #8b5cf6;
+            --accent: #6d28d9;
+            --blue: #3b82f6;
+            --green: #10b981;
+            --red: #ef4444;
+            --gold: #f59e0b;
+            --gold-dark: #d97706;
+            --dark: #0a0a12;
+            --darker: #05050a;
+            --card: #11111c;
+            --card-hover: #181828;
+            --border: #1f1f2e;
+            --border-light: #2a2a3d;
+            --light: #f0f0f5;
+            --muted: #a0a0b8;
+            --muted-light: #c8c8d8;
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.2);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.4);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
+            --shadow-primary: 0 4px 20px var(--primary-glow);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            padding-top: 76px;
+            overflow-x: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-image: radial-gradient(ellipse at 20% 20%, rgba(124, 58, 237, 0.06) 0%, transparent 60%),
+                              radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            line-height: 1.3;
+        }
+
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            -ms-user-drag: none;
+            user-drag: none;
+            pointer-events: auto;
+        }
+
+        button, a, select, input {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"], textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        header {
+            background-color: rgba(10, 10, 18, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.12);
+            transition: var(--transition);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            pointer-events: auto;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--primary-light); margin-left: 4px; }
+
+        .logo .pro-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+
+        .nav-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.92rem;
+            transition: var(--transition);
+            position: relative;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-link:hover { color: var(--light); }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.7rem;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hero {
+            padding: 90px 0 70px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -20%;
+            width: 140%;
+            height: 180%;
+            background: radial-gradient(circle at 30% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 45%),
+                        radial-gradient(circle at 70% 60%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+            z-index: -1;
+            pointer-events: none;
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 6vw, 3.8rem);
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, #f0eaff 0%, #d8ccff 30%, #b39dfc 60%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+            color: var(--muted);
+            max-width: 750px;
+            margin: 0 auto 40px;
+            font-weight: 400;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 44px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: rgba(124, 58, 237, 0.06);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--muted-light);
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .badge:hover {
+            background: rgba(124, 58, 237, 0.12);
+            border-color: rgba(124, 58, 237, 0.4);
+            color: var(--light);
+            transform: translateY(-2px);
+        }
+
+        .badge i { color: var(--primary-light); font-size: 1.1rem; }
+
+        .hero-cta { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 32px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            letter-spacing: 0.2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before { left: 100%; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 6px 25px var(--primary-glow);
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 35px var(--primary-glow); }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--light);
+            border: 1.5px solid rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-secondary:hover { background-color: rgba(124, 58, 237, 0.08); border-color: var(--primary); }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1a1a1a;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(245, 158, 11, 0.45); }
+
+        .btn-small { padding: 10px 18px; font-size: 0.88rem; border-radius: 8px; }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .promo-timer {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(139, 92, 246, 0.04));
+            border: 1.5px solid rgba(245, 158, 11, 0.25);
+            border-radius: 50px;
+            padding: 16px 28px;
+            margin: 0 auto 50px;
+            max-width: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            box-shadow: 0 4px 25px rgba(245, 158, 11, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .promo-timer i { color: var(--gold); font-size: 1.7rem; }
+        .timer-text { font-size: 1.1rem; font-weight: 600; color: var(--light); white-space: nowrap; }
+        .timer-clock {
+            background: var(--darker);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .section { padding: 70px 0; }
+
+        .section-title { text-align: center; margin-bottom: 50px; }
+
+        .section-title h2 {
+            font-size: clamp(1.9rem, 3.8vw, 2.5rem);
+            margin-bottom: 12px;
+            color: var(--light);
+            letter-spacing: -0.5px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background-color: var(--card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            backdrop-filter: blur(5px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(124, 58, 237, 0.5);
+            box-shadow: var(--shadow-md);
+            background-color: var(--card-hover);
+        }
+
+        .product-card.special-card {
+            border: 1.5px solid rgba(245, 158, 11, 0.25);
+            background: linear-gradient(145deg, #12121f, #1a1a2e);
+        }
+
+        .product-card.special-card:hover {
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.12);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .badge-best { background-color: #ef4444; color: white; }
+        .badge-new { background-color: #3b82f6; color: white; }
+        .badge-promo { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
+        .badge-special { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1a1a; }
+        .badge-promo-limitada { background: #ef4444; color: white; box-shadow: 0 0 14px rgba(239, 68, 68, 0.5); border: 1px solid #fca5a5; }
+        .badge-desconto { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 0 14px rgba(16, 185, 129, 0.5); }
+
+        .product-image {
+            height: 170px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(139, 92, 246, 0.04));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary-light);
+            pointer-events: none;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image { color: #c4b5fd; }
+
+        .special-card .product-image {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.02));
+            color: var(--gold);
+        }
+
+        .product-info {
+            padding: 22px 22px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--light);
+            line-height: 1.35;
+            font-weight: 600;
+        }
+
+        .product-price {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .current-price {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
+        }
+
+        .special-card .current-price { color: var(--gold); }
+
+        .original-price {
+            font-size: 0.95rem;
+            text-decoration: line-through;
+            color: var(--muted);
+            opacity: 0.7;
+        }
+
+        .discount-tag {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .product-features { margin-bottom: 22px; flex: 1; }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 7px;
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .feature i {
+            color: var(--primary-light);
+            margin-top: 3px;
+            flex-shrink: 0;
+            font-size: 0.95rem;
+        }
+
+        .special-card .feature i { color: var(--gold); }
+
+        .product-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+
+        .btn-buy, .btn-special-buy {
+            width: 100%;
+            padding: 14px;
+            font-size: 0.98rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .select-option {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            background-color: var(--darker);
+            color: var(--light);
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+            font-size: 0.92rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23a0a0b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .select-option:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+        }
+
+        .video-container {
+            margin: 14px 0 12px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background-color: #000;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border: 1px solid var(--border);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .kl-section-header { text-align: center; margin-bottom: 40px; }
+
+        .kl-section-header h2 {
+            font-size: clamp(2rem, 4vw, 2.6rem);
+            color: var(--gold);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .kl-section-header p {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .no-test-warning {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+            color: #fca5a5;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: warningPulse 2s ease-in-out infinite;
+        }
+
+        .no-test-warning i { margin-right: 8px; }
+
+        @keyframes warningPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.5); }
+        }
+
+        .channel-links {
+            padding: 70px 0;
+            background-color: rgba(17, 17, 28, 0.6);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 26px;
+        }
+
+        .channel-card {
+            background-color: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 32px 26px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .channel-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(124, 58, 237, 0.4);
+            box-shadow: var(--shadow-md);
+        }
+
+        .channel-card i { font-size: 2.8rem; color: var(--primary-light); margin-bottom: 18px; }
+        .channel-card h3 { margin-bottom: 10px; font-size: 1.3rem; }
+        .channel-card p { color: var(--muted); margin-bottom: 22px; font-size: 0.92rem; }
+
+        .security { padding: 70px 0; }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .security-item {
+            text-align: center;
+            padding: 30px 22px;
+            background-color: var(--card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .security-item:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.08);
+            transform: translateY(-3px);
+        }
+        .security-item i { font-size: 2.2rem; color: var(--green); margin-bottom: 18px; }
+        .security-item h3 { margin-bottom: 8px; font-size: 1.15rem; }
+        .security-item p { color: var(--muted); font-size: 0.88rem; }
+
+        .testimonials {
+            padding: 70px 0;
+            background-color: rgba(17, 17, 28, 0.6);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .testimonial-card {
+            background-color: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            border: 1px solid var(--border);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover { border-color: rgba(124, 58, 237, 0.3); box-shadow: var(--shadow-sm); }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 12px; left: 18px;
+            font-size: 4rem;
+            color: rgba(124, 58, 237, 0.08);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            margin-bottom: 18px;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            font-size: 0.92rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-light);
+            text-align: right;
+            font-size: 0.88rem;
+        }
+
+        .faq { padding: 70px 0; }
+
+        .faq-item {
+            margin-bottom: 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-color: var(--card);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover { border-color: var(--border-light); }
+
+        .faq-question {
+            padding: 18px 22px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            font-size: 0.98rem;
+            color: var(--light);
+        }
+
+        .faq-question:hover { background-color: rgba(124, 58, 237, 0.04); }
+        .faq-question i { transition: var(--transition); font-size: 1.1rem; color: var(--muted); }
+
+        .faq-answer {
+            padding: 0 22px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            color: var(--muted);
+            line-height: 1.7;
+            background-color: rgba(5, 5, 10, 0.4);
+            font-size: 0.92rem;
+        }
+
+        .faq-item.active .faq-question { background-color: rgba(124, 58, 237, 0.06); }
+        .faq-item.active .faq-question i { transform: rotate(180deg); color: var(--primary-light); }
+        .faq-item.active .faq-answer { padding: 0 22px 20px; max-height: 500px; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 10, 0.96);
+            z-index: 2000;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background-color: var(--card);
+            border-radius: var(--radius-xl);
+            padding: 36px 30px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            margin: auto;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 14px; right: 18px;
+            font-size: 2rem;
+            color: var(--muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+        .close-modal:hover { color: var(--light); transform: rotate(90deg); }
+
+        .modal-title { font-size: 1.7rem; margin-bottom: 6px; text-align: center; color: var(--light); font-weight: 600; }
+        .modal-subtitle { text-align: center; color: var(--muted); margin-bottom: 24px; font-size: 0.92rem; }
+
+        .modal-product-info {
+            background-color: rgba(124, 58, 237, 0.08);
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .modal-product-name { font-weight: 600; color: var(--light); font-size: 1.05rem; }
+        .modal-product-price { font-weight: 700; color: var(--primary-light); font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; }
+
+        .payment-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .payment-tab {
+            padding: 16px;
+            text-align: center;
+            background-color: var(--darker);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--muted);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .payment-tab:hover { border-color: var(--border-light); color: var(--light); }
+
+        .payment-tab.active {
+            background-color: rgba(124, 58, 237, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-light);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+        }
+
+        .payment-tab i { font-size: 1.4rem; }
+        .payment-tab span { font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+        .payment-tab.active span { color: var(--primary-light); }
+
+        .payment-pane { display: none; }
+        .payment-pane.active { display: block; }
+
+        .coupon-section {
+            margin-bottom: 18px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .coupon-section input {
+            flex: 1;
+            padding: 11px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--darker);
+            color: var(--light);
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .coupon-section input:focus { outline: none; border-color: var(--primary); }
+        .coupon-section button {
+            padding: 11px 18px;
+            background: var(--gold);
+            color: #1a1a1a;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .coupon-section button:hover { background: var(--gold-dark); }
+
+        .form-section-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-title::after { content: ''; height: 1px; flex: 1; background-color: var(--border); }
+
+        .form-group { margin-bottom: 16px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            background-color: var(--darker);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--light);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .form-error { color: var(--red); font-size: 0.72rem; margin-top: 4px; display: none; }
+        .has-error input { border-color: var(--red); }
+        .has-error .form-error { display: block; }
+
+        .btn-gerar-pix {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 18px var(--primary-glow);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-gerar-pix:hover { transform: translateY(-2px); box-shadow: 0 6px 28px var(--primary-glow); }
+        .btn-gerar-pix:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        #pixArea { display: none; text-align: center; }
+
+        .pix-success-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--green);
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .qr-wrapper {
+            background-color: white;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            display: inline-block;
+            margin-bottom: 8px;
+            box-shadow: var(--shadow-md);
+        }
+
+        #qrCodeImg {
+            width: 190px;
+            height: 190px;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .qr-label { color: #1a1a1a; font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
+
+        .gateway-notice {
+            background-color: rgba(59, 130, 246, 0.06);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            margin: 14px 0 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: #93c5fd;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .gateway-notice i { color: #3b82f6; font-size: 0.85rem; flex-shrink: 0; margin-top: 1px; }
+
+        .or-divider {
+            margin: 16px 0;
+            color: var(--muted);
+            font-size: 0.85rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .or-divider::before, .or-divider::after {
+            content: '';
+            height: 1px;
+            flex: 1;
+            background-color: var(--border);
+        }
+
+        .pix-code-label {
+            text-align: left;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .pix-code-box {
+            background-color: var(--darker);
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            border: 1px dashed rgba(124, 58, 237, 0.5);
+            color: var(--light);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.82rem;
+            word-break: break-all;
+            margin-bottom: 12px;
+            max-height: 90px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .btn-copiar-pix {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(124, 58, 237, 0.08);
+            color: var(--primary-light);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-copiar-pix:hover { background-color: var(--primary); color: white; }
+        .btn-copiar-pix.copied { background-color: var(--green); border-color: var(--green); color: white; }
+
+        .payment-status {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            text-align: left;
+        }
+
+        .payment-status.pending { background-color: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .payment-status.paid { background-color: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.2); }
+
+        .status-icon { font-size: 1.6rem; margin-bottom: 6px; }
+        .status-text { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+        .status-sub { font-size: 0.82rem; color: var(--muted); }
+
+        .btn-verificar {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--border);
+            color: var(--light);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-verificar:hover { background-color: var(--primary); }
+
+        .expiry-note {
+            margin-top: 14px;
+            font-size: 0.78rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .modal-telegram {
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .modal-telegram p { color: var(--muted); font-size: 0.85rem; margin-bottom: 10px; }
+
+        .crypto-box {
+            background-color: var(--darker);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .crypto-amount-label { font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
+
+        .crypto-amount {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 4px;
+        }
+
+        .crypto-currency { font-size: 1rem; color: var(--muted); margin-bottom: 16px; }
+
+        .crypto-address-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-align: left;
+            margin-bottom: 6px;
+        }
+
+        .crypto-address {
+            background-color: var(--dark);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+            color: var(--light);
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        .btn-copiar-crypto {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--gold);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-copiar-crypto:hover { background-color: var(--gold); color: #1a1a1a; }
+        .btn-copiar-crypto.copied { background-color: var(--green); border-color: var(--green); color: white; }
+
+        .crypto-note {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .crypto-note i { color: var(--gold); margin-top: 2px; flex-shrink: 0; }
+
+        .pix-cpf-fixo {
+            background: rgba(124, 58, 237, 0.06);
+            border: 1px dashed rgba(124, 58, 237, 0.25);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pix-cpf-fixo .cpf-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pix-cpf-fixo .cpf-value {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            letter-spacing: 0.3px;
+            background: var(--darker);
+            padding: 3px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            word-break: break-all;
+            max-width: 100%;
+        }
+
+        .pix-cpf-fixo .cpf-copy-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 4px 6px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .pix-cpf-fixo .cpf-copy-btn:hover { color: var(--primary-light); background: rgba(124, 58, 237, 0.1); }
+
+        .welcome-banner {
+            position: fixed;
+            top: 76px;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(245, 158, 11, 0.9));
+            padding: 10px 20px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .welcome-banner .coupon-code {
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'Space Grotesk', monospace;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .welcome-banner .coupon-code:hover { background: rgba(0,0,0,0.5); }
+
+        .welcome-banner .close-banner {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .welcome-banner .close-banner:hover { color: #ddd; }
+
+        .support-fab {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .support-fab .support-label {
+            background: rgba(10, 10, 18, 0.9);
+            color: var(--muted);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            white-space: nowrap;
+        }
+
+        .support-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            position: relative;
+            animation: supportPulse 2.5s ease-in-out infinite;
+        }
+
+        .support-btn:hover { transform: scale(1.08); box-shadow: 0 6px 30px rgba(14, 165, 233, 0.6); }
+
+        .support-btn .support-badge {
+            position: absolute;
+            top: -4px; right: -4px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.52rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 10px;
+            border: 2px solid var(--dark);
+            animation: blink 1.8s ease-in-out infinite;
+        }
+
+        @keyframes supportPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(14, 165, 233, 0.35); }
+            50% { box-shadow: 0 4px 40px rgba(14, 165, 233, 0.7); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        footer {
+            background-color: var(--darker);
+            padding: 55px 0 28px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 36px;
+            margin-bottom: 36px;
+        }
+
+        .footer-column h4 { margin-bottom: 16px; font-size: 1.1rem; color: var(--light); font-weight: 600; }
+        .footer-column p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: var(--muted); text-decoration: none; transition: var(--transition); font-size: 0.88rem; }
+        .footer-links a:hover { color: var(--primary-light); }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 22px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .music-player { position: fixed; bottom: 28px; right: 20px; z-index: 100; }
+
+        .music-toggle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 14px var(--primary-glow);
+            transition: var(--transition);
+        }
+
+        .music-toggle:hover { transform: scale(1.08); }
+
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--green);
+            color: white;
+            padding: 12px 26px;
+            border-radius: 50px;
+            font-weight: 600;
+            z-index: 3000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            pointer-events: none;
+            white-space: nowrap;
+            font-size: 0.88rem;
+        }
+
+        .toast.show { opacity: 1; }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s ease-in-out infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            body { padding-top: 64px; }
+            .header-container { padding: 12px 0; }
+            .welcome-banner { top: 64px; font-size: 0.8rem; padding: 8px 15px; }
+            .nav-links {
+                position: fixed;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(10, 10, 18, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+                border-bottom: 1px solid var(--border);
+                z-index: 999;
+                box-shadow: var(--shadow-md);
+            }
+            .nav-links.active { transform: translateY(0); opacity: 1; }
+            .mobile-menu-btn { display: block; }
+            .hero { padding: 56px 0 40px; }
+            .hero-badges { flex-direction: column; align-items: stretch; gap: 8px; max-width: 380px; margin-left: auto; margin-right: auto; }
+            .badge { justify-content: center; }
+            .hero-cta { flex-direction: column; align-items: center; gap: 12px; }
+            .hero-cta .btn { width: 100%; max-width: 280px; }
+            .products-grid { grid-template-columns: 1fr; gap: 18px; }
+            .product-card { max-width: 450px; margin: 0 auto; width: 100%; }
+            .section-title { margin-bottom: 32px; }
+            .channels-grid, .security-grid, .testimonials-grid { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; gap: 24px; }
+            .footer-links { display: flex; flex-direction: column; align-items: center; }
+            .modal-content { padding: 28px 20px; }
+            .form-row { grid-template-columns: 1fr; gap: 8px; }
+            .support-fab { bottom: 88px; right: 14px; }
+            .support-btn { width: 50px; height: 50px; font-size: 1.5rem; }
+            .support-fab .support-label { font-size: 0.55rem; padding: 3px 8px; }
+            .promo-timer { padding: 12px 16px; gap: 10px; }
+            .timer-text { font-size: 0.9rem; }
+            .timer-clock { font-size: 1.3rem; padding: 4px 12px; }
+            .payment-tabs { grid-template-columns: 1fr; gap: 8px; }
+            .payment-tab { flex-direction: row; }
+        }
+
+        @media (max-width: 480px) {
+            .logo { font-size: 1.3rem; }
+            .logo .pro-badge { font-size: 0.55rem; padding: 2px 6px; }
+            .hero h1 { font-size: 1.7rem; }
+            .product-info h3 { font-size: 1.1rem; }
+            .current-price { font-size: 1.6rem; }
+            .btn, .btn-buy, .btn-gerar-pix, .btn-special-buy { padding: 12px 16px; font-size: 0.9rem; }
+            .music-player { bottom: 24px; right: 12px; }
+            .support-fab { bottom: 80px; right: 10px; }
+            .support-btn { width: 44px; height: 44px; font-size: 1.3rem; }
+            .pix-cpf-fixo .cpf-value { font-size: 0.72rem; padding: 3px 8px; }
+            .crypto-amount { font-size: 1.6rem; }
+            .welcome-banner { font-size: 0.75rem; }
+        }
+    </style>
 </head>
 <body>
-  <main>
-    <div class="mark" aria-hidden="true">S</div>
-    <h1>SigiloPay Integration</h1>
-    <p>Serviço de integração para criação e consulta de cobranças PIX.</p>
-    <div class="status"><span class="dot"></span><span>Aplicação iniciada. Verifique o endpoint de saúde e configure as credenciais no ambiente de hospedagem.</span></div>
-    <div class="links">
-      <a href="/health">Verificar saúde da API</a>
-      <a href="/api/debug">Diagnóstico da API SigiloPay</a>
+
+    <div id="welcomeBanner" class="welcome-banner">
+        <i class="fas fa-gift"></i>
+        <span>Bem-vindo! Use o cupom</span>
+        <span class="coupon-code" id="welcomeCouponCode">BEMVINDO5</span>
+        <span>para R$5 de desconto em qualquer produto</span>
+        <button class="close-banner" id="closeBanner" aria-label="Fechar">&times;</button>
     </div>
-    <small>Este é um painel básico de status, não uma página de checkout. Os endpoints de pagamento precisam ser integrados ao seu fluxo de vendas.</small>
-  </main>
+
+    <header id="mainHeader">
+        <div class="container header-container">
+            <a href="#" class="logo">COLAB HOT<span>PRO</span><span class="pro-badge">PRO</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="#products" class="nav-link">Ferramentas</a>
+                <a href="#kl-remota" class="nav-link">KL Remota</a>
+                <a href="#especiais" class="nav-link">Especiais</a>
+                <a href="#channels" class="nav-link">Canais</a>
+                <a href="#security" class="nav-link">Segurança</a>
+                <a href="#testimonials" class="nav-link">Avaliações</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="support-fab">
+        <span class="support-label"><i class="fas fa-headset"></i> SUPORTE</span>
+        <a href="https://t.me/suphotvip" target="_blank" class="support-btn" aria-label="Suporte no Telegram">
+            <i class="fab fa-telegram-plane"></i>
+            <span class="support-badge">ON</span>
+        </a>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <h1>SOLUÇÕES DIGITAIS PROFISSIONAIS</h1>
+            <p>Automatize, escale e monetize com ferramentas de alta performance. Tecnologia avançada, segurança total e entrega automática.</p>
+            <div class="hero-badges">
+                <div class="badge"><i class="fas fa-shield-alt"></i><span>Ambiente 100% Seguro</span></div>
+                <div class="badge"><i class="fas fa-rocket"></i><span>Entrega Automática</span></div>
+                <div class="badge"><i class="fas fa-headset"></i><span>Suporte 24/7</span></div>
+                <div class="badge"><i class="fas fa-gem"></i><span>Garantia de 7 Dias</span></div>
+            </div>
+            <div class="hero-cta">
+                <a href="#products" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Ver Ferramentas</a>
+                <a href="#kl-remota" class="btn btn-gold"><i class="fas fa-crown"></i> KL Remota BT MOB</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" style="margin-bottom: 20px;">
+        <div class="promo-timer">
+            <i class="fas fa-hourglass-half"></i>
+            <span class="timer-text">OFERTA RELÂMPAGO termina em:</span>
+            <span class="timer-clock" id="promoTimer">15:00</span>
+        </div>
+    </div>
+
+    <section id="products" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>NOSSAS FERRAMENTAS</h2>
+                <p>Escolha a solução ideal para o seu negócio digital</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge badge-promo">Promoção</div>
+                    <div class="product-image"><i class="fas fa-star"></i></div>
+                    <div class="product-info">
+                        <h3>ManyCam + Método de Tela Cheia</h3>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>ManyCam PRO completo desbloqueado</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Método Tela Cheia WhatsApp incluso</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Videochamadas perfeitas sem bordas</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Economia de R$40,00</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <select class="select-option" id="manycam-select">
+                                <option value="49.90" data-product="ManyCam + Método de Tela Cheia">Padrão - R$ 49,90</option>
+                                <option value="149.90" data-product="ManyCam + Método de Tela Cheia (com instalação)">Com instalação via AnyDesk - R$ 149,90</option>
+                            </select>
+                            <button class="btn btn-primary btn-buy" id="manycam-buy" data-product="ManyCam + Método de Tela Cheia" data-price="49.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge badge-promo">Promoção</div>
+                    <div class="product-image"><i class="fas fa-video"></i></div>
+                    <div class="product-info">
+                        <h3>ManyCam PRO</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$39,90</span>
+                            <span class="original-price">R$79,90</span>
+                            <span class="discount-tag">-50%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>Versão PRO completa desbloqueada</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Todos os efeitos e funções</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Uso ilimitado sem restrições</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Atualizações gratuitas</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy" data-product="ManyCam PRO" data-price="39.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge badge-promo">Promoção</div>
+                    <div class="product-image"><i class="fab fa-whatsapp"></i></div>
+                    <div class="product-info">
+                        <h3>Método Tela Cheia WhatsApp</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$29,90</span>
+                            <span class="original-price">R$60,00</span>
+                            <span class="discount-tag">-50%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>Videochamada em tela cheia no PC</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Requer ManyCam instalado</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Sem bordas pretas</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Configuração simples</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy" data-product="Método Tela Cheia WhatsApp" data-price="29.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge badge-best">Mais Vendido</div>
+                    <div class="product-image"><i class="fas fa-sync-alt"></i></div>
+                    <div class="product-info">
+                        <h3>Espelhador de Canais</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$69,90</span>
+                            <span class="original-price">R$249,90</span>
+                            <span class="discount-tag">-72%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>Clona canais em tempo real</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Remove e substitui links automaticamente</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Rodapé personalizável</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Múltiplos links de substituição</span></div>
+                        </div>
+                        <div class="video-container"><iframe src="https://www.youtube.com/embed/HmgPtpo80vM" frameborder="0" allowfullscreen></iframe></div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy" data-product="Espelhador de Canais" data-price="69.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <a href="https://www.youtube.com/watch?v=HmgPtpo80vM" target="_blank" class="btn btn-secondary btn-small"><i class="fab fa-youtube"></i> Ver Tutorial</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge badge-best">Mais Vendido</div>
+                    <div class="product-image"><i class="fas fa-copy"></i></div>
+                    <div class="product-info">
+                        <h3>Clonador de Canais</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$69,90</span>
+                            <span class="original-price">R$199,90</span>
+                            <span class="discount-tag">-65%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>Clona conteúdo de canais e grupos</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Reenvia para qualquer canal seu</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Sem limite de uso</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Filtros avançados</span></div>
+                        </div>
+                        <div class="video-container"><iframe src="https://www.youtube.com/embed/S65f1lhob8w?start=2" frameborder="0" allowfullscreen></iframe></div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy" data-product="Clonador de Canais" data-price="69.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <a href="https://www.youtube.com/watch?v=S65f1lhob8w&t=2s" target="_blank" class="btn btn-secondary btn-small"><i class="fab fa-youtube"></i> Ver Tutorial</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge badge-promo">Promoção</div>
+                    <div class="product-image"><i class="fas fa-cut"></i></div>
+                    <div class="product-info">
+                        <h3>Editor de Mídia em Massa</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$32,90</span>
+                            <span class="original-price">R$49,90</span>
+                            <span class="discount-tag">-34%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>Corta mais de 1000 imagens de uma vez</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Adiciona marca d'água automática</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Agilidade e proteção</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Múltiplos formatos</span></div>
+                        </div>
+                        <div class="video-container"><iframe src="https://www.youtube.com/embed/O8DK-F4r6hw?start=3" frameborder="0" allowfullscreen></iframe></div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy" data-product="Editor de Mídia em Massa" data-price="32.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <a href="https://www.youtube.com/watch?v=O8DK-F4r6hw&t=3s" target="_blank" class="btn btn-secondary btn-small"><i class="fab fa-youtube"></i> Ver Tutorial</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge badge-new">Novo</div>
+                    <div class="product-image"><i class="fas fa-users"></i></div>
+                    <div class="product-info">
+                        <h3>Extrator de Membros</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$249,90</span>
+                            <span class="original-price">R$350,00</span>
+                            <span class="discount-tag">-29%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>Extrai membros de grupos e canais</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Adiciona automaticamente em seu grupo</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Licença vitalícia</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Tutorial incluso</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy" data-product="Extrator de Membros" data-price="249.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge badge-promo">Oferta Especial</div>
+                    <div class="product-image"><i class="fas fa-crown"></i></div>
+                    <div class="product-info">
+                        <h3>Combo Completo</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$299,90</span>
+                            <span class="original-price">R$549,90</span>
+                            <span class="discount-tag">-45%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>Espelhador de Canais</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Clonador de Canais</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Editor de Mídia em Massa</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>ManyCam PRO + WhatsApp</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Extrator de Membros</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy" data-product="Combo Completo" data-price="299.90"><i class="fas fa-gem"></i> Comprar Combo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge badge-promo">Promoção</div>
+                    <div class="product-image"><i class="fab fa-telegram"></i></div>
+                    <div class="product-info">
+                        <h3>Membros para Telegram</h3>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check"></i><span>Membros reais para grupos e canais</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Entrega automática após confirmação</span></div>
+                            <div class="feature"><i class="fas fa-check"></i><span>Pacotes sob demanda</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <select id="telegram-members-option" class="select-option">
+                                <option value="33.00" data-product="1.000 membros para Telegram">1.000 membros — R$33,00</option>
+                                <option value="66.00" data-product="2.000 membros para Telegram">2.000 membros — R$66,00</option>
+                                <option value="165.00" data-product="5.000 membros para Telegram">5.000 membros — R$165,00</option>
+                                <option value="275.00" data-product="10.000 membros para Telegram">10.000 membros — R$275,00</option>
+                            </select>
+                            <button class="btn btn-primary btn-buy" id="buy-telegram-members" data-product="1.000 membros para Telegram" data-price="33.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kl-remota" class="section" style="background-color: rgba(17, 17, 28, 0.5); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <div class="kl-section-header">
+                <h2>⚡ KL REMOTA BT MOB</h2>
+                <p>Ferramenta exclusiva de acesso remoto com captura de dados avançada. Selecione a versão ideal para o seu perfil.</p>
+            </div>
+
+            <div class="no-test-warning">
+                <i class="fas fa-exclamation-triangle"></i> NÃO EXISTE TESTES GRÁTIS. CURIOSOS, NÃO PERCA SEU TEMPO.
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card special-card">
+                    <div class="product-badge badge-promo-limitada">🔥 V4.2</div>
+                    <div class="product-image"><i class="fas fa-keyboard"></i></div>
+                    <div class="product-info">
+                        <h3>KL REMOTA BT MOB V4.2</h3>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-key"></i><span>⌨️ Registro completo de teclas</span></div>
+                            <div class="feature"><i class="fas fa-camera"></i><span>📸 Captura de tela automática</span></div>
+                            <div class="feature"><i class="fas fa-eye"></i><span>🖥️ Visualização remota</span></div>
+                            <div class="feature"><i class="fas fa-camera-retro"></i><span>📱 Ver câmera em tempo real</span></div>
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>🔓 Bypass incluso</span></div>
+                        </div>
+                        <select class="select-option" id="kl-special-select">
+                            <option value="300.00" data-product="KL REMOTA BT MOB V4.2 (Semanal)">Semanal - R$ 300,00</option>
+                            <option value="649.90" data-product="KL REMOTA BT MOB V4.2 (Mensal)">Mensal - R$ 649,90</option>
+                            <option value="1500.00" data-product="KL REMOTA BT MOB V4.2 (Pagamento único)">Pagamento único - R$ 1.500,00</option>
+                        </select>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-special-buy" data-product="KL REMOTA BT MOB V4.2 (Semanal)" data-price="300.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="product-badge badge-special">⭐ V4.5</div>
+                    <div class="product-image"><i class="fas fa-server"></i></div>
+                    <div class="product-info">
+                        <h3>KL REMOTA BT MOB V4.5</h3>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>🖥️ Instalação inclusa + VPS</span></div>
+                            <div class="feature"><i class="fas fa-key"></i><span>⌨️ Keylogger avançado</span></div>
+                            <div class="feature"><i class="fas fa-camera"></i><span>📸 Capturas automáticas</span></div>
+                            <div class="feature"><i class="fas fa-eye"></i><span>👁️ Monitoramento remoto</span></div>
+                            <div class="feature"><i class="fas fa-shield-alt"></i><span>🛡️ Bypass atualizado</span></div>
+                            <div class="feature"><i class="fas fa-server"></i><span>☁️ VPS dedicada incluso</span></div>
+                        </div>
+                        <select class="select-option" id="kl-v45-select">
+                            <option value="1500.00" data-product="KL REMOTA BT MOB V4.5 (Mensal)">Mensal - R$ 1.500,00</option>
+                            <option value="2700.00" data-product="KL REMOTA BT MOB V4.5 (Life Time)">Life Time - R$ 2.700,00</option>
+                        </select>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-v45-buy" data-product="KL REMOTA BT MOB V4.5 (Mensal)" data-price="1500.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="product-badge badge-special">🚀 V5.1.0</div>
+                    <div class="product-image"><i class="fas fa-rocket"></i></div>
+                    <div class="product-info">
+                        <h3>KL REMOTA BT MOB V5.1.0</h3>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-bolt"></i><span>⚡ Extremamente otimizada - zero delay</span></div>
+                            <div class="feature"><i class="fas fa-credit-card"></i><span>💳 Gpay incluso</span></div>
+                            <div class="feature"><i class="fas fa-unlock"></i><span>🔓 Bypass completo incluso</span></div>
+                            <div class="feature"><i class="fas fa-download"></i><span>🔧 Instalação inclusa</span></div>
+                            <div class="feature"><i class="fas fa-users"></i><span>👥 Até 3 usuários simultâneos</span></div>
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>✅ Última atualização</span></div>
+                        </div>
+                        <select class="select-option" id="kl-v510-select">
+                            <option value="2500.00" data-product="KL REMOTA BT MOB V5.1.0 (Mensal)">Mensal - R$ 2.500,00</option>
+                            <option value="5200.00" data-product="KL REMOTA BT MOB V5.1.0 (Life Time)">Life Time - R$ 5.200,00</option>
+                        </select>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-v510-buy" data-product="KL REMOTA BT MOB V5.1.0 (Mensal)" data-price="2500.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="especiais" class="section section-special">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: var(--gold);">⚡ FERRAMENTAS ESPECIAIS</h2>
+                <p>Produtos de alto valor com retorno garantido.</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card special-card">
+                    <div class="product-badge badge-promo-limitada">🔥 PROMO LIMITADA</div>
+                    <div class="product-image"><i class="fas fa-motorcycle"></i></div>
+                    <div class="product-info">
+                        <h3>ESQUEMA HONDA</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$850,00</span>
+                            <span class="original-price">R$1.500,00</span>
+                            <span class="discount-tag">-43%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>🔧 Operação completa</span></div>
+                            <div class="feature"><i class="fas fa-tools"></i><span>🛠️ Ferramentas exclusivas</span></div>
+                            <div class="feature"><i class="fas fa-chart-line"></i><span>💰 Faturamento até R$5k/dia</span></div>
+                            <div class="feature"><i class="fas fa-camera"></i><span>📷 Câmera fake inclusa</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="ESQUEMA HONDA" data-price="850.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="product-badge badge-promo-limitada">🔥 PROMO LIMITADA</div>
+                    <div class="product-image"><i class="fas fa-phone-alt"></i></div>
+                    <div class="product-info">
+                        <h3>ESQUEMA VIVA SORTE + MODIFICADOR</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$950,00</span>
+                            <span class="original-price">R$2.000,00</span>
+                            <span class="discount-tag">-53%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>📦 Esquema completo</span></div>
+                            <div class="feature"><i class="fas fa-robot"></i><span>🎤 Modificador de voz incluso</span></div>
+                            <div class="feature"><i class="fas fa-dollar-sign"></i><span>💰 Fatura até 50k</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="ESQUEMA VIVA SORTE + MODIFICADOR DE VOZ" data-price="950.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="product-badge badge-promo-limitada">🔥 PROMO LIMITADA</div>
+                    <div class="product-image"><i class="fas fa-robot"></i></div>
+                    <div class="product-info">
+                        <h3>DEEPFAKE EM TEMPO REAL</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$770,00</span>
+                            <span class="original-price">R$1.500,00</span>
+                            <span class="discount-tag">-49%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>🎭 Software vitalício</span></div>
+                            <div class="feature"><i class="fas fa-download"></i><span>⚙️ Instalação inclusa</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="DEEPFAKE EM TEMPO REAL" data-price="770.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="product-badge badge-promo-limitada">🔥 PROMO LIMITADA</div>
+                    <div class="product-image"><i class="fas fa-microphone-alt"></i></div>
+                    <div class="product-info">
+                        <h3>CLONADOR DE VOZ EM TEMPO REAL IA</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$548,90</span>
+                            <span class="original-price">R$1.100,00</span>
+                            <span class="discount-tag">-50%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>🧠 Clona qualquer voz</span></div>
+                            <div class="feature"><i class="fas fa-headset"></i><span>🆘 Suporte incluso</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="CLONADOR DE VOZ EM TEMPO REAL IA" data-price="548.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="product-badge badge-promo-limitada">🔥 PROMO LIMITADA</div>
+                    <div class="product-image"><i class="fas fa-wave-square"></i></div>
+                    <div class="product-info">
+                        <h3>MODIFICADOR DE VOZ BÁSICO IA</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$273,90</span>
+                            <span class="original-price">R$550,00</span>
+                            <span class="discount-tag">-50%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>⏳ 90 dias de acesso</span></div>
+                            <div class="feature"><i class="fas fa-download"></i><span>🔧 Instalação inclusa</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="MODIFICADOR DE VOZ BÁSICO IA" data-price="273.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card special-card">
+                    <div class="product-badge badge-promo-limitada">🔥 PROMO LIMITADA</div>
+                    <div class="product-image"><i class="fas fa-fire"></i></div>
+                    <div class="product-info">
+                        <h3>HOT MILIONARIO</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$493,90</span>
+                            <span class="original-price">R$990,00</span>
+                            <span class="discount-tag">-50%</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>📘 Curso completo de Hot</span></div>
+                            <div class="feature"><i class="fas fa-users"></i><span>🤝 Grupo VIP</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="HOT MILIONARIO" data-price="493.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="channels" class="channel-links">
+        <div class="container">
+            <div class="section-title">
+                <h2>CANAL OFICIAL E FEEDBACKS</h2>
+                <p>Conecte-se com nossa comunidade e veja avaliações reais</p>
+            </div>
+            <div class="channels-grid">
+                <div class="channel-card">
+                    <i class="fab fa-telegram"></i>
+                    <h3>Canal Oficial</h3>
+                    <p>Entre no nosso canal oficial para novidades, atualizações e suporte exclusivo.</p>
+                    <a href="https://t.me/+Dij9Byo_W4k1ZWYx" target="_blank" class="btn btn-primary"><i class="fab fa-telegram"></i> Acessar Canal</a>
+                </div>
+                <div class="channel-card">
+                    <i class="fas fa-comment-dots"></i>
+                    <h3>Feedbacks Reais</h3>
+                    <p>Veja avaliações e depoimentos de clientes que já adquiriram nossos produtos.</p>
+                    <a href="https://t.me/+NcURgd7COrVhYTUx" target="_blank" class="btn btn-primary"><i class="fab fa-telegram"></i> Ver Feedbacks</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="security" class="security">
+        <div class="container">
+            <div class="section-title">
+                <h2>COMPRA 100% SEGURA</h2>
+                <p>Todas as transações são protegidas e seus dados estão sempre seguros</p>
+            </div>
+            <div class="security-grid">
+                <div class="security-item"><i class="fas fa-lock"></i><h3>Pagamento Seguro</h3><p>Criptografia de ponta a ponta.</p></div>
+                <div class="security-item"><i class="fas fa-shield-alt"></i><h3>Garantia de 7 Dias</h3><p>Devolvemos seu dinheiro sem burocracia.</p></div>
+                <div class="security-item"><i class="fas fa-headset"></i><h3>Suporte 24/7</h3><p>Equipe especializada disponível.</p></div>
+                <div class="security-item"><i class="fas fa-bolt"></i><h3>Entrega Automática</h3><p>Acesso liberado após confirmação.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>AVALIAÇÕES REAIS</h2>
+                <p>Veja o que nossos clientes estão dizendo</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card"><p class="testimonial-text">Comprei o ManyCam PRO e funcionou perfeitamente! Entrega rápida e automática.</p><p class="testimonial-author">Carlos M.</p></div>
+                <div class="testimonial-card"><p class="testimonial-text">O Espelhador de Canais revolucionou meu negócio. Acesso imediato.</p><p class="testimonial-author">Maria L.</p></div>
+                <div class="testimonial-card"><p class="testimonial-text">Produto chegou no prazo, funcionou como prometido. Recomendo muito!</p><p class="testimonial-author">Ana P.</p></div>
+                <div class="testimonial-card"><p class="testimonial-text">Fácil de usar e exatamente o que eu precisava. Entrega automática excelente.</p><p class="testimonial-author">João S.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>DÚVIDAS FREQUENTES</h2>
+                <p>Tire suas dúvidas sobre nossos produtos e serviços</p>
+            </div>
+            <div class="faq-item active">
+                <div class="faq-question"><span>Como faço para comprar?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Clique em "Comprar Agora", escolha entre PIX ou USDT (cripto), preencha os dados e finalize. O acesso é liberado automaticamente após a confirmação do pagamento.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span>Como recebo os produtos?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>A entrega é automática. Após a confirmação do pagamento, você recebe o acesso imediatamente na plataforma.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span>Os produtos têm garantia?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Sim! Garantia de 7 dias contra problemas técnicos de nossa responsabilidade.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span>Qual a diferença entre as versões da KL Remota BT MOB?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>A V4.2 oferece o básico com bypass incluso. A V4.5 inclui instalação completa + VPS dedicada. A V5.1.0 é a mais avançada, com otimização zero delay, Gpay incluso, bypass completo e suporte para até 3 usuários simultâneos.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span>Posso pagar com criptomoedas?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Sim! Aceitamos USDT TRC-20. No checkout, selecione a opção "Cripto" e envie o valor equivalente ao endereço exibido. Após a confirmação, seu acesso é liberado automaticamente.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span>Existe teste grátis da KL Remota?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Não. Deixamos bem claro que não existe testes grátis. Apenas clientes sérios e decididos.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal" aria-label="Fechar">&times;</button>
+            <h3 class="modal-title">FINALIZAR COMPRA</h3>
+            <p class="modal-subtitle">Escolha o método de pagamento e conclua</p>
+            <div class="modal-product-info">
+                <span class="modal-product-name" id="modalProductName">—</span>
+                <span class="modal-product-price" id="modalProductPrice">R$0,00</span>
+            </div>
+
+            <div class="payment-tabs">
+                <div class="payment-tab active" data-tab="pix">
+                    <i class="fas fa-qrcode"></i> PIX
+                    <span>Pagamento instantâneo</span>
+                </div>
+                <div class="payment-tab" data-tab="crypto">
+                    <i class="fab fa-bitcoin"></i> Cripto (USDT)
+                    <span>TRC-20</span>
+                </div>
+            </div>
+
+            <div class="payment-pane active" id="pane-pix">
+                <div class="coupon-section">
+                    <input type="text" id="couponInput" placeholder="Cupom de desconto">
+                    <button id="applyCoupon">Aplicar</button>
+                </div>
+
+                <div id="formSection">
+                    <p class="form-section-title">Seus dados</p>
+                    <div class="form-group" id="grp-name">
+                        <label for="inputName">Nome completo *</label>
+                        <input type="text" id="inputName" placeholder="Ex: João da Silva" autocomplete="name">
+                        <span class="form-error">Informe seu nome completo.</span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" id="grp-cpf">
+                            <label for="inputCPF">CPF *</label>
+                            <input type="text" id="inputCPF" placeholder="000.000.000-00" maxlength="14">
+                            <span class="form-error">CPF inválido.</span>
+                        </div>
+                        <div class="form-group" id="grp-phone">
+                            <label for="inputPhone">Celular *</label>
+                            <input type="text" id="inputPhone" placeholder="(11) 99999-9999" maxlength="15">
+                            <span class="form-error">Celular inválido.</span>
+                        </div>
+                    </div>
+                    <div class="form-group" id="grp-email">
+                        <label for="inputEmail">E-mail *</label>
+                        <input type="email" id="inputEmail" placeholder="seuemail@exemplo.com">
+                        <span class="form-error">E-mail inválido.</span>
+                    </div>
+                    <button class="btn-gerar-pix" id="btnGerarPix">
+                        <i class="fas fa-qrcode"></i> Gerar PIX agora
+                    </button>
+                </div>
+
+                <div id="pixArea">
+                    <div class="pix-success-row">
+                        <i class="fas fa-check-circle"></i>
+                        <span>PIX gerado! Pague agora e receba acesso imediato.</span>
+                    </div>
+
+                    <div class="qr-wrapper">
+                        <img id="qrCodeImg" alt="QR Code PIX" style="display:block; width:190px; height:190px;">
+                        <p class="qr-label">Escaneie com o app do seu banco</p>
+                    </div>
+
+                    <div class="pix-cpf-fixo">
+                        <span class="cpf-label"><i class="fas fa-id-card"></i> Pix Copia e Cola:</span>
+                        <span class="cpf-value" id="cpfFixoValue">—</span>
+                        <button class="cpf-copy-btn" id="cpfCopyBtn" title="Copiar Chave PIX"><i class="fas fa-copy"></i></button>
+                    </div>
+
+                    <div class="gateway-notice">
+                        <i class="fas fa-info-circle"></i>
+                        <span><strong>Nota:</strong> Seu banco pode exibir um alerta de segurança ao processar este PIX. Isso é normal e ocorre devido à verificação automática do nosso gateway de pagamento. A transação é 100% segura.</span>
+                    </div>
+
+                    <div class="or-divider">ou copie o código abaixo</div>
+                    <p class="pix-code-label"><i class="fas fa-align-left"></i> Pix Copia e Cola</p>
+                    <div class="pix-code-box" id="pixCopyCode">—</div>
+                    <button class="btn-copiar-pix" id="btnCopiarPix">
+                        <i class="fas fa-copy"></i> Copiar código PIX
+                    </button>
+                    <div class="payment-status pending" id="paymentStatus">
+                        <div class="status-icon">⏳</div>
+                        <div class="status-text">Aguardando pagamento</div>
+                        <div class="status-sub">Acesso liberado automaticamente após confirmação</div>
+                    </div>
+                    <button class="btn-verificar" id="btnVerificar">
+                        <i class="fas fa-sync-alt"></i> Já paguei, verificar
+                    </button>
+                    <p class="expiry-note"><i class="fas fa-clock"></i> PIX válido por 30 minutos</p>
+                </div>
+            </div>
+
+            <div class="payment-pane" id="pane-crypto">
+                <div class="crypto-box">
+                    <p class="crypto-amount-label">Valor a pagar (USDT TRC-20)</p>
+                    <p class="crypto-amount" id="cryptoAmount">0.00</p>
+                    <p class="crypto-currency">USDT</p>
+                    <p class="crypto-address-label">Endereço da carteira:</p>
+                    <div class="crypto-address" id="cryptoAddress">TNqwcs8yarxAZLtwZzgzk4MS4Uy6sC87f3</div>
+                    <button class="btn-copiar-crypto" id="btnCopiarCrypto">
+                        <i class="fas fa-copy"></i> Copiar Endereço
+                    </button>
+                    <div class="crypto-note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Envie exatamente o valor em USDT para o endereço acima. Após a confirmação na rede, seu acesso será liberado automaticamente.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-telegram">
+                <p>Dúvidas? Fale com nosso suporte:</p>
+                <a href="https://t.me/suphotvip" target="_blank" class="btn btn-secondary btn-small">
+                    <i class="fab fa-telegram"></i> @suphotvip
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>COLAB HOT PRO</h4>
+                    <p>Ferramentas digitais profissionais para automação, gestão e alto desempenho.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Links Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#products">Ferramentas</a></li>
+                        <li><a href="#kl-remota">KL Remota</a></li>
+                        <li><a href="#especiais">Especiais</a></li>
+                        <li><a href="#channels">Canais</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Produtos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-buy-link" data-product="Clonador de Canais" data-price="69.90">Clonador de Canais</a></li>
+                        <li><a href="#" class="footer-buy-link" data-product="Espelhador de Canais" data-price="69.90">Espelhador de Canais</a></li>
+                        <li><a href="#" class="footer-buy-link" data-product="Combo Completo" data-price="299.90">Combo Completo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 COLAB HOT PRO. Todos os direitos reservados.</p>
+                <p style="margin-top:8px;font-size:0.78rem;">CNPJ: 08.716.451/0001-74</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="music-player"><button class="music-toggle" id="musicToggle"><i class="fas fa-play"></i></button></div>
+    <div class="toast" id="toast"></div>
+    <audio id="backgroundMusic" loop><source src="music2.mp3" type="audio/mpeg"></audio>
+
+    <script>
+    (() => {
+        'use strict';
+
+        const OFFICIAL_PRICES = Object.freeze({
+            'ManyCam + Método de Tela Cheia': 49.90,
+            'ManyCam + Método de Tela Cheia (com instalação)': 149.90,
+            'ManyCam PRO': 39.90,
+            'Método Tela Cheia WhatsApp': 29.90,
+            'Espelhador de Canais': 69.90,
+            'Clonador de Canais': 69.90,
+            'Editor de Mídia em Massa': 32.90,
+            'Extrator de Membros': 249.90,
+            'Combo Completo': 299.90,
+            '1.000 membros para Telegram': 33.00,
+            '2.000 membros para Telegram': 66.00,
+            '5.000 membros para Telegram': 165.00,
+            '10.000 membros para Telegram': 275.00,
+            'KL REMOTA BT MOB V4.2 (Semanal)': 300.00,
+            'KL REMOTA BT MOB V4.2 (Mensal)': 649.90,
+            'KL REMOTA BT MOB V4.2 (Pagamento único)': 1500.00,
+            'KL REMOTA BT MOB V4.5 (Mensal)': 1500.00,
+            'KL REMOTA BT MOB V4.5 (Life Time)': 2700.00,
+            'KL REMOTA BT MOB V5.1.0 (Mensal)': 2500.00,
+            'KL REMOTA BT MOB V5.1.0 (Life Time)': 5200.00,
+            'ESQUEMA HONDA': 850.00,
+            'ESQUEMA VIVA SORTE + MODIFICADOR DE VOZ': 950.00,
+            'DEEPFAKE EM TEMPO REAL': 770.00,
+            'CLONADOR DE VOZ EM TEMPO REAL IA': 548.90,
+            'MODIFICADOR DE VOZ BÁSICO IA': 273.90,
+            'HOT MILIONARIO': 493.90
+        });
+
+        Object.defineProperty(window, 'OFFICIAL_PRICES', { value: OFFICIAL_PRICES, writable: false, configurable: false });
+
+        function validatePrice(productName, price) {
+            const officialPrice = OFFICIAL_PRICES[productName];
+            if (officialPrice === undefined) return false;
+            if (Math.abs(officialPrice - price) > 0.01) return false;
+            return true;
+        }
+
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && ['u','U','s','S','i','I','j','J','c','C','p','P'].includes(e.key)) {
+                e.preventDefault(); e.stopPropagation(); return false;
+            }
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key))) {
+                e.preventDefault(); e.stopPropagation(); return false;
+            }
+        });
+        document.addEventListener('keyup', e => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key))) {
+                e.preventDefault(); e.stopPropagation(); return false;
+            }
+        });
+        document.addEventListener('selectstart', e => {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') e.preventDefault();
+        });
+        document.addEventListener('copy', e => {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); return false; }
+        });
+        document.addEventListener('cut', e => {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); return false; }
+        });
+
+        const integrityObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.target.hasAttribute && mutation.target.hasAttribute('data-price')) {
+                    const productName = mutation.target.getAttribute('data-product');
+                    const currentPrice = parseFloat(mutation.target.getAttribute('data-price'));
+                    if (productName && OFFICIAL_PRICES[productName] && Math.abs(OFFICIAL_PRICES[productName] - currentPrice) > 0.01) {
+                        mutation.target.setAttribute('data-price', OFFICIAL_PRICES[productName].toString());
+                    }
+                }
+            });
+        });
+        integrityObserver.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['data-price'] });
+
+        const COUPON_CODE = 'COLAB5';
+        const WELCOME_COUPON = 'BEMVINDO5';
+        const DISCOUNT = 0.05;
+        const WELCOME_DISCOUNT = 5.00;
+        const USDT_RATE = 5.50;
+
+        function startPromoTimer(duration = 15 * 60) {
+            const timerEl = document.getElementById('promoTimer');
+            let time = duration;
+            function updateTimer() {
+                const mins = Math.floor(time / 60);
+                const secs = time % 60;
+                timerEl.textContent = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+                if (time <= 0) { timerEl.textContent = 'EXPIRADO'; }
+                else { time--; setTimeout(updateTimer, 1000); }
+            }
+            updateTimer();
+        }
+        startPromoTimer();
+
+        let currentTransactionId = null;
+        let pollingInterval = null;
+        let currentProduct = { productName: '', price: 0 };
+        let originalPrice = 0;
+
+        function showToast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.style.backgroundColor = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6';
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3500);
+        }
+
+        const welcomeBanner = document.getElementById('welcomeBanner');
+        const closeBanner = document.getElementById('closeBanner');
+        const welcomeCouponCode = document.getElementById('welcomeCouponCode');
+
+        closeBanner.addEventListener('click', () => { welcomeBanner.style.display = 'none'; });
+
+        welcomeCouponCode.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(WELCOME_COUPON);
+                showToast('Cupom copiado! Use no checkout.', 'info');
+            } catch {
+                showToast('Copie manualmente: ' + WELCOME_COUPON, 'info');
+            }
+        });
+
+        const cpfInput = document.getElementById('inputCPF');
+        const phoneInput = document.getElementById('inputPhone');
+        if (cpfInput) cpfInput.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g,'').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+        });
+        if (phoneInput) phoneInput.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g,'').replace(/^(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d{4})$/,'$1-$2');
+        });
+
+        function cleanNum(v) { return v.replace(/\D/g,''); }
+        function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+        function validCPF(cpf) {
+            cpf = cleanNum(cpf);
+            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+            let s = 0;
+            for (let i = 0; i < 9; i++) s += +cpf[i] * (10 - i);
+            let r = (s * 10) % 11; if (r >= 10) r = 0;
+            if (r !== +cpf[9]) return false;
+            s = 0;
+            for (let i = 0; i < 10; i++) s += +cpf[i] * (11 - i);
+            r = (s * 10) % 11; if (r >= 10) r = 0;
+            return r === +cpf[10];
+        }
+
+        function setErr(id, v) { document.getElementById(id)?.classList.toggle('has-error', v); }
+
+        function validateForm() {
+            const name = document.getElementById('inputName').value.trim();
+            const cpf = document.getElementById('inputCPF').value;
+            const phone = document.getElementById('inputPhone').value;
+            const email = document.getElementById('inputEmail').value.trim();
+            let ok = true;
+            const nameOk = name.split(/\s+/).length >= 2;
+            setErr('grp-name', !nameOk); if (!nameOk) ok = false;
+            setErr('grp-cpf', !validCPF(cpf)); if (!validCPF(cpf)) ok = false;
+            setErr('grp-phone', cleanNum(phone).length < 10); if (cleanNum(phone).length < 10) ok = false;
+            setErr('grp-email', !validEmail(email)); if (!validEmail(email)) ok = false;
+            return ok;
+        }
+
+        function setStatus(type, icon, title, sub) {
+            const el = document.getElementById('paymentStatus');
+            if (!el) return;
+            el.className = 'payment-status ' + type;
+            el.innerHTML = `<div class="status-icon">${icon}</div><div class="status-text">${title}</div><div class="status-sub">${sub}</div>`;
+        }
+
+        function startPolling(txId) {
+            if (pollingInterval) clearInterval(pollingInterval);
+            pollingInterval = setInterval(async () => {
+                try {
+                    const res = await fetch(`/api/pix/status/${encodeURIComponent(txId)}`).then(r => r.json());
+                    const statusRaw = (res?.status || res?.data?.status || '').toLowerCase();
+                    if (['paid','approved','completed','confirmed','pago','paid_out','succeeded'].includes(statusRaw)) {
+                        clearInterval(pollingInterval);
+                        setStatus('paid','✅','Pagamento confirmado!','Acesso liberado automaticamente!');
+                        const b = document.getElementById('btnVerificar'); if (b) b.style.display = 'none';
+                        showToast('Pagamento confirmado! ✅','success');
+                        if (typeof fbq === 'function') fbq('track','Purchase',{ value: currentProduct.price, currency: 'BRL' });
+                    }
+                } catch (_) { /* silencioso */ }
+            }, 8000);
+        }
+
+        function updateCryptoAmount() {
+            const amountBrl = currentProduct.price;
+            const amountUsdt = (amountBrl / USDT_RATE).toFixed(2);
+            document.getElementById('cryptoAmount').textContent = amountUsdt;
+        }
+
+        function openModal(productName, price) {
+            if (!validatePrice(productName, price)) {
+                showToast('⚠️ ERRO DE SEGURANÇA: Valor do produto inválido.', 'error');
+                return;
+            }
+            originalPrice = price;
+            currentProduct = { productName, price };
+            currentTransactionId = null;
+            if (pollingInterval) clearInterval(pollingInterval);
+
+            document.getElementById('formSection').style.display = 'block';
+            document.getElementById('pixArea').style.display = 'none';
+            document.getElementById('btnVerificar').style.display = 'block';
+            const btnGerar = document.getElementById('btnGerarPix');
+            btnGerar.disabled = false;
+            btnGerar.innerHTML = '<i class="fas fa-qrcode"></i> Gerar PIX agora';
+            ['grp-name','grp-cpf','grp-phone','grp-email'].forEach(id => setErr(id, false));
+            setStatus('pending','⏳','Aguardando pagamento','Acesso liberado automaticamente após confirmação');
+            document.getElementById('modalProductName').textContent = productName;
+            document.getElementById('modalProductPrice').textContent = 'R$' + price.toFixed(2).replace('.',',');
+            document.getElementById('qrCodeImg').removeAttribute('src');
+            document.getElementById('pixCopyCode').textContent = '—';
+            document.getElementById('cpfFixoValue').textContent = '—';
+            updateCryptoAmount();
+            document.querySelectorAll('.payment-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector('.payment-tab[data-tab="pix"]').classList.add('active');
+            document.querySelectorAll('.payment-pane').forEach(pane => pane.classList.remove('active'));
+            document.getElementById('pane-pix').classList.add('active');
+            document.getElementById('couponInput').value = '';
+            document.getElementById('paymentModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+            document.body.style.overflow = '';
+            if (pollingInterval) clearInterval(pollingInterval);
+        }
+
+        document.querySelectorAll('.payment-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const target = this.dataset.tab;
+                document.querySelectorAll('.payment-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.payment-pane').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('pane-' + target).classList.add('active');
+            });
+        });
+
+        const klSelect = document.getElementById('kl-special-select');
+        const klBuyBtn = document.getElementById('kl-special-buy');
+        if (klSelect && klBuyBtn) {
+            klSelect.addEventListener('change', function() {
+                const opt = this.options[this.selectedIndex];
+                const productName = opt.dataset.product;
+                const price = parseFloat(opt.value);
+                if (validatePrice(productName, price)) {
+                    klBuyBtn.dataset.price = opt.value;
+                    klBuyBtn.dataset.product = productName;
+                }
+            });
+        }
+
+        const klV45Select = document.getElementById('kl-v45-select');
+        const klV45Btn = document.getElementById('kl-v45-buy');
+        if (klV45Select && klV45Btn) {
+            klV45Select.addEventListener('change', function() {
+                const opt = this.options[this.selectedIndex];
+                const productName = opt.dataset.product;
+                const price = parseFloat(opt.value);
+                if (validatePrice(productName, price)) {
+                    klV45Btn.dataset.price = opt.value;
+                    klV45Btn.dataset.product = productName;
+                }
+            });
+        }
+
+        const klV510Select = document.getElementById('kl-v510-select');
+        const klV510Btn = document.getElementById('kl-v510-buy');
+        if (klV510Select && klV510Btn) {
+            klV510Select.addEventListener('change', function() {
+                const opt = this.options[this.selectedIndex];
+                const productName = opt.dataset.product;
+                const price = parseFloat(opt.value);
+                if (validatePrice(productName, price)) {
+                    klV510Btn.dataset.price = opt.value;
+                    klV510Btn.dataset.product = productName;
+                }
+            });
+        }
+
+        document.getElementById('applyCoupon').addEventListener('click', () => {
+            const coupon = document.getElementById('couponInput').value.trim().toUpperCase();
+            if (coupon === COUPON_CODE) {
+                const newPrice = originalPrice * (1 - DISCOUNT);
+                document.getElementById('modalProductPrice').textContent = 'R$' + newPrice.toFixed(2).replace('.',',');
+                currentProduct.price = newPrice;
+                updateCryptoAmount();
+                showToast('Cupom aplicado! 5% de desconto.', 'success');
+            } else if (coupon === WELCOME_COUPON) {
+                const newPrice = Math.max(0, originalPrice - WELCOME_DISCOUNT);
+                document.getElementById('modalProductPrice').textContent = 'R$' + newPrice.toFixed(2).replace('.',',');
+                currentProduct.price = newPrice;
+                updateCryptoAmount();
+                showToast('Cupom de boas-vindas aplicado! R$5 de desconto.', 'success');
+            } else {
+                currentProduct.price = originalPrice;
+                document.getElementById('modalProductPrice').textContent = 'R$' + originalPrice.toFixed(2).replace('.',',');
+                updateCryptoAmount();
+                showToast('Cupom inválido.', 'error');
+            }
+        });
+
+        document.getElementById('btnGerarPix').addEventListener('click', async () => {
+            if (!validateForm()) { showToast('Preencha todos os campos corretamente.', 'error'); return; }
+            if (!validatePrice(currentProduct.productName, currentProduct.price)) {
+                showToast('⚠️ ERRO CRÍTICO: Preço manipulado detectado.', 'error');
+                closeModal();
+                return;
+            }
+
+            const btn = document.getElementById('btnGerarPix');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Gerando PIX...';
+
+            const name  = document.getElementById('inputName').value.trim();
+            const cpf   = cleanNum(document.getElementById('inputCPF').value);
+            const phone = cleanNum(document.getElementById('inputPhone').value);
+            const email = document.getElementById('inputEmail').value.trim();
+            const securePrice = OFFICIAL_PRICES[currentProduct.productName] || currentProduct.price;
+
+            try {
+                const resp = await fetch('/api/pix/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        identifier: 'ID_' + Date.now(),
+                        amount: Number(securePrice.toFixed(2)),
+                        description: currentProduct.productName,
+                        client: { name, email, document: cpf, phone }
+                    })
+                });
+
+                const data = await resp.json();
+
+                if (!resp.ok || !data.ok) {
+                    console.error('Resposta SigiloPay:', data);
+                    showToast('Erro: ' + (data?.error || 'falha ao gerar PIX'), 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-qrcode"></i> Gerar PIX agora';
+                    return;
+                }
+
+                currentTransactionId = data.transactionId || null;
+
+                const qrImg = document.getElementById('qrCodeImg');
+                if (data.qrBase64) {
+                    qrImg.src = data.qrBase64.startsWith('data:')
+                        ? data.qrBase64
+                        : 'data:image/png;base64,' + data.qrBase64;
+                } else if (data.copyPaste) {
+                    qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=380x380&data=' + encodeURIComponent(data.copyPaste);
+                } else {
+                    showToast('Resposta sem QR nem copia-e-cola', 'error');
+                }
+
+                const cc = data.copyPaste || '';
+                document.getElementById('pixCopyCode').textContent = cc || '—';
+                document.getElementById('cpfFixoValue').textContent = cc || '—';
+
+                document.getElementById('formSection').style.display = 'none';
+                document.getElementById('pixArea').style.display = 'block';
+
+                if (currentTransactionId) startPolling(currentTransactionId);
+
+                showToast('PIX gerado! Realize o pagamento 🎉', 'success');
+            } catch (err) {
+                console.error(err);
+                showToast('Erro de rede: ' + err.message, 'error');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-qrcode"></i> Gerar PIX agora';
+        });
+
+        document.getElementById('btnVerificar').addEventListener('click', async () => {
+            if (!currentTransactionId) {
+                setStatus('pending','⏳','Pagamento pendente','Aguardando confirmação automática.');
+                showToast('Após o pagamento, o acesso será liberado automaticamente', 'info');
+                return;
+            }
+            const btn = document.getElementById('btnVerificar');
+            btn.disabled = true;
+            try {
+                const res = await fetch(`/api/pix/status/${encodeURIComponent(currentTransactionId)}`).then(r => r.json());
+                const statusRaw = (res?.status || res?.data?.status || '').toLowerCase();
+                if (['paid','approved','completed','confirmed','pago','succeeded'].includes(statusRaw)) {
+                    clearInterval(pollingInterval);
+                    setStatus('paid','✅','Pagamento confirmado!','Acesso liberado automaticamente!');
+                    btn.style.display = 'none';
+                    showToast('Pagamento confirmado! ✅','success');
+                } else {
+                    setStatus('pending','⏳','Ainda não identificamos','Aguarde a confirmação automática.');
+                    showToast('Pagamento ainda não identificado','info');
+                }
+            } catch (e) { showToast('Erro ao verificar: ' + e.message,'error'); }
+            btn.disabled = false;
+        });
+
+        document.getElementById('btnCopiarPix').addEventListener('click', async () => {
+            const code = document.getElementById('pixCopyCode').textContent.trim();
+            if (!code || code === '—') {
+                showToast('Código PIX não disponível.', 'error');
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(code);
+                const btn = document.getElementById('btnCopiarPix');
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                showToast('Código PIX copiado!','success');
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copiar código PIX';
+                }, 3000);
+            } catch { showToast('Copie manualmente o código acima.','error'); }
+        });
+
+        document.getElementById('cpfCopyBtn').addEventListener('click', async () => {
+            const cpfValue = document.getElementById('cpfFixoValue').textContent.trim();
+            if (!cpfValue || cpfValue === '—') { showToast('Código PIX não disponível.', 'error'); return; }
+            try {
+                await navigator.clipboard.writeText(cpfValue);
+                const btn = document.getElementById('cpfCopyBtn');
+                btn.innerHTML = '<i class="fas fa-check" style="color:#10b981;"></i>';
+                showToast('Código PIX copiado!','success');
+                setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i>'; }, 2500);
+            } catch {
+                showToast('Copie manualmente: ' + cpfValue, 'info');
+            }
+        });
+
+        document.getElementById('btnCopiarCrypto').addEventListener('click', async () => {
+            const address = document.getElementById('cryptoAddress').textContent.trim();
+            try {
+                await navigator.clipboard.writeText(address);
+                const btn = document.getElementById('btnCopiarCrypto');
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                showToast('Endereço USDT copiado!','success');
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copiar Endereço';
+                }, 3000);
+            } catch { showToast('Copie manualmente o endereço.','error'); }
+        });
+
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('paymentModal').addEventListener('click', e => { if (e.target.id === 'paymentModal') closeModal(); });
+
+        document.querySelectorAll('.btn-buy').forEach(btn =>
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productName = this.dataset.product;
+                const price = parseFloat(this.dataset.price);
+                if (!validatePrice(productName, price)) {
+                    showToast('⚠️ ERRO: Preço inválido detectado.', 'error');
+                    return;
+                }
+                openModal(productName, price);
+            })
+        );
+
+        document.querySelectorAll('.footer-buy-link').forEach(link =>
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const productName = this.dataset.product;
+                const price = parseFloat(this.dataset.price);
+                if (!validatePrice(productName, price)) {
+                    showToast('⚠️ ERRO: Preço inválido detectado.', 'error');
+                    return;
+                }
+                openModal(productName, price);
+            })
+        );
+
+        const selMem = document.getElementById('telegram-members-option');
+        const btnMem = document.getElementById('buy-telegram-members');
+        if (selMem && btnMem) {
+            selMem.addEventListener('change', function() {
+                const opt = this.options[this.selectedIndex];
+                const productName = opt.dataset.product;
+                const price = parseFloat(opt.value);
+                if (validatePrice(productName, price)) {
+                    btnMem.dataset.price = opt.value;
+                    btnMem.dataset.product = productName;
+                }
+            });
+        }
+
+        const manycamSelect = document.getElementById('manycam-select');
+        const manycamBtn = document.getElementById('manycam-buy');
+        if (manycamSelect && manycamBtn) {
+            manycamSelect.addEventListener('change', function() {
+                const opt = this.options[this.selectedIndex];
+                const productName = opt.dataset.product;
+                const price = parseFloat(opt.value);
+                if (validatePrice(productName, price)) {
+                    manycamBtn.dataset.price = opt.value;
+                    manycamBtn.dataset.product = productName;
+                }
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('mainHeader').style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.2)' : '0 1px 20px rgba(0,0,0,0.2)';
+        });
+
+        const mBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('navLinks');
+        mBtn?.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            mBtn.innerHTML = nav.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => {
+            nav.classList.remove('active');
+            mBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }));
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
+            if (this.classList.contains('btn-buy') || this.classList.contains('footer-buy-link')) return;
+            e.preventDefault();
+            const t = document.querySelector(this.getAttribute('href'));
+            if (t) window.scrollTo({ top: t.offsetTop - 76, behavior: 'smooth' });
+        }));
+
+        document.querySelectorAll('.faq-item').forEach(item =>
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                document.querySelectorAll('.faq-item').forEach(i => i !== item && i.classList.remove('active'));
+                item.classList.toggle('active');
+            })
+        );
+
+        const anim = document.querySelectorAll('.product-card,.channel-card,.security-item,.testimonial-card');
+        function doAnim() {
+            anim.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight/1.2) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        window.addEventListener('load', () => {
+            anim.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            doAnim();
+        });
+        window.addEventListener('scroll', doAnim);
+
+        const music = document.getElementById('backgroundMusic');
+        const mToggle = document.getElementById('musicToggle');
+        let playing = false;
+        if (music && mToggle) {
+            music.volume = 0.25;
+            mToggle.addEventListener('click', () => {
+                playing ? (music.pause(), mToggle.innerHTML='<i class="fas fa-play"></i>', playing=false)
+                        : music.play().then(() => { mToggle.innerHTML='<i class="fas fa-pause"></i>'; playing=true; }).catch(()=>{});
+            });
+            document.addEventListener('click', () => {
+                if (!playing) music.play().then(() => { mToggle.innerHTML='<i class="fas fa-pause"></i>'; playing=true; }).catch(()=>{});
+            }, { once: true });
+        }
+
+        const fp = [
+            {n:'ManyCam + Método', p:'R$49,90'}, {n:'ManyCam PRO', p:'R$39,90'}, {n:'Espelhador', p:'R$69,90'},
+            {n:'Clonador', p:'R$69,90'}, {n:'Combo', p:'R$299,90'}, {n:'KL Semanal', p:'R$300,00'},
+            {n:'KL Mensal', p:'R$649,90'}, {n:'KL Vitalício', p:'R$1.500,00'}, {n:'KL V4.5', p:'R$1.500,00'},
+            {n:'KL V5.1.0', p:'R$2.500,00'}, {n:'Esquema Honda', p:'R$850,00'}
+        ];
+        const fn = ['Carlos','Ana','João','Maria','Pedro','Fernanda'];
+        const fi = ['S.','M.','P.','R.','F.'];
+        function fakeBuy() {
+            const p = fp[Math.floor(Math.random() * fp.length)];
+            const n = fn[Math.floor(Math.random() * fn.length)] + ' ' + fi[Math.floor(Math.random() * fi.length)];
+            showToast(`${n} comprou ${p.n} por ${p.p}`, 'info');
+            setTimeout(fakeBuy, 180000 + Math.random() * 120000);
+        }
+        setTimeout(fakeBuy, 60000);
+
+        setInterval(() => {
+            document.querySelectorAll('[data-price]').forEach(el => {
+                const productName = el.getAttribute('data-product');
+                const currentPrice = parseFloat(el.getAttribute('data-price'));
+                if (productName && OFFICIAL_PRICES[productName] && Math.abs(OFFICIAL_PRICES[productName] - currentPrice) > 0.01) {
+                    el.setAttribute('data-price', OFFICIAL_PRICES[productName].toString());
+                }
+            });
+        }, 3000);
+
+    })();
+    </script>
 </body>
 </html>
