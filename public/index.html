@@ -464,6 +464,16 @@
             box-shadow: 0 12px 35px rgba(245, 158, 11, 0.12);
         }
 
+        .product-card.bypass-card {
+            border: 1.5px solid rgba(34, 197, 94, 0.35);
+            background: linear-gradient(145deg, #0f1a15, #14251d);
+        }
+
+        .product-card.bypass-card:hover {
+            border-color: rgba(34, 197, 94, 0.6);
+            box-shadow: 0 12px 35px rgba(34, 197, 94, 0.15);
+        }
+
         .product-badge {
             position: absolute;
             top: 14px;
@@ -484,6 +494,7 @@
         .badge-special { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1a1a; }
         .badge-promo-limitada { background: #ef4444; color: white; box-shadow: 0 0 14px rgba(239, 68, 68, 0.5); border: 1px solid #fca5a5; }
         .badge-desconto { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 0 14px rgba(16, 185, 129, 0.5); }
+        .badge-bypass { background: linear-gradient(135deg, #22c55e, #059669); color: white; box-shadow: 0 0 14px rgba(34, 197, 94, 0.5); border: 1px solid #86efac; }
 
         .product-image {
             height: 170px;
@@ -504,6 +515,13 @@
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.02));
             color: var(--gold);
         }
+
+        .bypass-card .product-image {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(34, 197, 94, 0.02));
+            color: #4ade80;
+        }
+
+        .bypass-card .feature i { color: #4ade80; }
 
         .product-info {
             padding: 22px 22px 24px;
@@ -537,6 +555,7 @@
         }
 
         .special-card .current-price { color: var(--gold); }
+        .bypass-card .current-price { color: #4ade80; }
 
         .original-price {
             font-size: 0.95rem;
@@ -586,6 +605,18 @@
             font-size: 0.98rem;
             border-radius: var(--radius-sm);
         }
+
+        .btn-bypass-buy {
+            width: 100%;
+            padding: 14px;
+            font-size: 0.98rem;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, #22c55e, #059669);
+            color: white;
+            box-shadow: 0 6px 25px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-bypass-buy:hover { transform: translateY(-2px); box-shadow: 0 10px 35px rgba(34, 197, 94, 0.45); }
 
         .select-option {
             width: 100%;
@@ -1569,7 +1600,7 @@
             .hero h1 { font-size: 1.7rem; }
             .product-info h3 { font-size: 1.1rem; }
             .current-price { font-size: 1.6rem; }
-            .btn, .btn-buy, .btn-gerar-pix, .btn-special-buy { padding: 12px 16px; font-size: 0.9rem; }
+            .btn, .btn-buy, .btn-gerar-pix, .btn-special-buy, .btn-bypass-buy { padding: 12px 16px; font-size: 0.9rem; }
             .music-player { bottom: 24px; right: 12px; }
             .support-fab { bottom: 80px; right: 10px; }
             .support-btn { width: 44px; height: 44px; font-size: 1.3rem; }
@@ -1878,12 +1909,11 @@
                             <div class="feature"><i class="fas fa-check-circle"></i><span>🔓 Bypass incluso</span></div>
                         </div>
                         <select class="select-option" id="kl-special-select">
-                            <option value="300.00" data-product="KL REMOTA BT MOB V4.2 (Semanal)">Semanal - R$ 300,00</option>
-                            <option value="649.90" data-product="KL REMOTA BT MOB V4.2 (Mensal)">Mensal - R$ 649,90</option>
-                            <option value="1500.00" data-product="KL REMOTA BT MOB V4.2 (Pagamento único)">Pagamento único - R$ 1.500,00</option>
+                            <option value="150.00" data-product="KL REMOTA BT MOB V4.2 (Semanal)">Semanal - R$ 150,00</option>
+                            <option value="350.00" data-product="KL REMOTA BT MOB V4.2 (Mensal)">Mensal - R$ 350,00</option>
                         </select>
                         <div class="product-actions">
-                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-special-buy" data-product="KL REMOTA BT MOB V4.2 (Semanal)" data-price="300.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-special-buy" data-product="KL REMOTA BT MOB V4.2 (Semanal)" data-price="150.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                         </div>
                     </div>
                 </div>
@@ -1894,19 +1924,17 @@
                     <div class="product-info">
                         <h3>KL REMOTA BT MOB V4.5</h3>
                         <div class="product-features">
-                            <div class="feature"><i class="fas fa-check-circle"></i><span>🖥️ Instalação inclusa + VPS</span></div>
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>🖥️ Instalação inclusa</span></div>
                             <div class="feature"><i class="fas fa-key"></i><span>⌨️ Keylogger avançado</span></div>
                             <div class="feature"><i class="fas fa-camera"></i><span>📸 Capturas automáticas</span></div>
                             <div class="feature"><i class="fas fa-eye"></i><span>👁️ Monitoramento remoto</span></div>
                             <div class="feature"><i class="fas fa-shield-alt"></i><span>🛡️ Bypass atualizado</span></div>
-                            <div class="feature"><i class="fas fa-server"></i><span>☁️ VPS dedicada incluso</span></div>
                         </div>
                         <select class="select-option" id="kl-v45-select">
-                            <option value="1500.00" data-product="KL REMOTA BT MOB V4.5 (Mensal)">Mensal - R$ 1.500,00</option>
-                            <option value="2700.00" data-product="KL REMOTA BT MOB V4.5 (Life Time)">Life Time - R$ 2.700,00</option>
+                            <option value="449.90" data-product="KL REMOTA BT MOB V4.5 (Mensal)">Mensal - R$ 449,90</option>
                         </select>
                         <div class="product-actions">
-                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-v45-buy" data-product="KL REMOTA BT MOB V4.5 (Mensal)" data-price="1500.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-v45-buy" data-product="KL REMOTA BT MOB V4.5 (Mensal)" data-price="449.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                         </div>
                     </div>
                 </div>
@@ -1925,11 +1953,31 @@
                             <div class="feature"><i class="fas fa-check-circle"></i><span>✅ Última atualização</span></div>
                         </div>
                         <select class="select-option" id="kl-v510-select">
-                            <option value="2500.00" data-product="KL REMOTA BT MOB V5.1.0 (Mensal)">Mensal - R$ 2.500,00</option>
-                            <option value="5200.00" data-product="KL REMOTA BT MOB V5.1.0 (Life Time)">Life Time - R$ 5.200,00</option>
+                            <option value="749.90" data-product="KL REMOTA BT MOB V5.1.0 (Mensal)">Mensal - R$ 749,90</option>
                         </select>
                         <div class="product-actions">
-                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-v510-buy" data-product="KL REMOTA BT MOB V5.1.0 (Mensal)" data-price="2500.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-v510-buy" data-product="KL REMOTA BT MOB V5.1.0 (Mensal)" data-price="749.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bypass-card">
+                    <div class="product-badge badge-bypass">🛡️ NOVO</div>
+                    <div class="product-image"><i class="fas fa-shield-halved"></i></div>
+                    <div class="product-info">
+                        <h3>BYPASS PREMIUM</h3>
+                        <div class="product-price">
+                            <span class="current-price">R$350,00</span>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature"><i class="fas fa-ban"></i><span>🚫 Sem tela preta</span></div>
+                            <div class="feature"><i class="fas fa-university"></i><span>🏦 Passa em todos os bancos (Nubank, Itaú, Sicredi, etc.)</span></div>
+                            <div class="feature"><i class="fas fa-calendar-check"></i><span>📅 Atualizado em Novembro de 2026</span></div>
+                            <div class="feature"><i class="fas fa-link"></i><span>🔗 Funciona com qualquer KL</span></div>
+                            <div class="feature"><i class="fas fa-check-circle"></i><span>✅ Compatibilidade total</span></div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-bypass-buy btn-buy" data-product="BYPASS" data-price="350.00"><i class="fas fa-shield-halved"></i> Comprar Agora</button>
                         </div>
                     </div>
                 </div>
@@ -1951,9 +1999,9 @@
                     <div class="product-info">
                         <h3>ESQUEMA HONDA</h3>
                         <div class="product-price">
-                            <span class="current-price">R$850,00</span>
-                            <span class="original-price">R$1.500,00</span>
-                            <span class="discount-tag">-43%</span>
+                            <span class="current-price">R$449,00</span>
+                            <span class="original-price">R$850,00</span>
+                            <span class="discount-tag">-47%</span>
                         </div>
                         <div class="product-features">
                             <div class="feature"><i class="fas fa-check-circle"></i><span>🔧 Operação completa</span></div>
@@ -1962,7 +2010,7 @@
                             <div class="feature"><i class="fas fa-camera"></i><span>📷 Câmera fake inclusa</span></div>
                         </div>
                         <div class="product-actions">
-                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="ESQUEMA HONDA" data-price="850.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="ESQUEMA HONDA" data-price="449.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                         </div>
                     </div>
                 </div>
@@ -1994,16 +2042,16 @@
                     <div class="product-info">
                         <h3>DEEPFAKE EM TEMPO REAL</h3>
                         <div class="product-price">
-                            <span class="current-price">R$770,00</span>
-                            <span class="original-price">R$1.500,00</span>
-                            <span class="discount-tag">-49%</span>
+                            <span class="current-price">R$299,00</span>
+                            <span class="original-price">R$599,00</span>
+                            <span class="discount-tag">-50%</span>
                         </div>
                         <div class="product-features">
                             <div class="feature"><i class="fas fa-check-circle"></i><span>🎭 Software vitalício</span></div>
                             <div class="feature"><i class="fas fa-download"></i><span>⚙️ Instalação inclusa</span></div>
                         </div>
                         <div class="product-actions">
-                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="DEEPFAKE EM TEMPO REAL" data-price="770.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <button class="btn btn-primary btn-buy btn-special-buy" data-product="DEEPFAKE EM TEMPO REAL" data-price="299.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                         </div>
                     </div>
                 </div>
@@ -2144,7 +2192,11 @@
             </div>
             <div class="faq-item">
                 <div class="faq-question"><span>Qual a diferença entre as versões da KL Remota BT MOB?</span><i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer"><p>A V4.2 oferece o básico com bypass incluso. A V4.5 inclui instalação completa + VPS dedicada. A V5.1.0 é a mais avançada, com otimização zero delay, Gpay incluso, bypass completo e suporte para até 3 usuários simultâneos.</p></div>
+                <div class="faq-answer"><p>A <strong>V4.2</strong> oferece o básico com bypass incluso (semanal R$ 150 / mensal R$ 350). A <strong>V4.5</strong> inclui instalação completa e keylogger avançado (mensal R$ 449,90). A <strong>V5.1.0</strong> é a mais avançada, com otimização zero delay, Gpay incluso, bypass completo e suporte para até 3 usuários simultâneos (mensal R$ 749,90). Além disso, temos o <strong>BYPASS PREMIUM</strong> por R$ 350,00 — sem tela preta, passa em todos os bancos (Nubank, Itaú, Sicredi, etc.), atualizado em Novembro de 2026 e funciona com qualquer KL.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span>O que é o BYPASS PREMIUM?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>O <strong>BYPASS PREMIUM</strong> é uma solução de bypass de última geração, sem tela preta, que funciona em todos os bancos (Nubank, Itaú, Sicredi, entre outros). Foi atualizado em Novembro de 2026 e é compatível com qualquer versão de KL. Preço: R$ 350,00.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question"><span>Posso pagar com criptomoedas?</span><i class="fas fa-chevron-down"></i></div>
@@ -2302,6 +2354,7 @@
                         <li><a href="#" class="footer-buy-link" data-product="Clonador de Canais" data-price="69.90">Clonador de Canais</a></li>
                         <li><a href="#" class="footer-buy-link" data-product="Espelhador de Canais" data-price="69.90">Espelhador de Canais</a></li>
                         <li><a href="#" class="footer-buy-link" data-product="Combo Completo" data-price="299.90">Combo Completo</a></li>
+                        <li><a href="#" class="footer-buy-link" data-product="BYPASS" data-price="350.00">Bypass Premium</a></li>
                     </ul>
                 </div>
             </div>
@@ -2334,16 +2387,14 @@
             '2.000 membros para Telegram': 66.00,
             '5.000 membros para Telegram': 165.00,
             '10.000 membros para Telegram': 275.00,
-            'KL REMOTA BT MOB V4.2 (Semanal)': 300.00,
-            'KL REMOTA BT MOB V4.2 (Mensal)': 649.90,
-            'KL REMOTA BT MOB V4.2 (Pagamento único)': 1500.00,
-            'KL REMOTA BT MOB V4.5 (Mensal)': 1500.00,
-            'KL REMOTA BT MOB V4.5 (Life Time)': 2700.00,
-            'KL REMOTA BT MOB V5.1.0 (Mensal)': 2500.00,
-            'KL REMOTA BT MOB V5.1.0 (Life Time)': 5200.00,
-            'ESQUEMA HONDA': 850.00,
+            'KL REMOTA BT MOB V4.2 (Semanal)': 150.00,
+            'KL REMOTA BT MOB V4.2 (Mensal)': 350.00,
+            'KL REMOTA BT MOB V4.5 (Mensal)': 449.90,
+            'KL REMOTA BT MOB V5.1.0 (Mensal)': 749.90,
+            'BYPASS': 350.00,
+            'ESQUEMA HONDA': 449.00,
             'ESQUEMA VIVA SORTE + MODIFICADOR DE VOZ': 950.00,
-            'DEEPFAKE EM TEMPO REAL': 770.00,
+            'DEEPFAKE EM TEMPO REAL': 299.00,
             'CLONADOR DE VOZ EM TEMPO REAL IA': 548.90,
             'MODIFICADOR DE VOZ BÁSICO IA': 273.90,
             'HOT MILIONARIO': 493.90
@@ -2891,9 +2942,10 @@
 
         const fp = [
             {n:'ManyCam + Método', p:'R$49,90'}, {n:'ManyCam PRO', p:'R$39,90'}, {n:'Espelhador', p:'R$69,90'},
-            {n:'Clonador', p:'R$69,90'}, {n:'Combo', p:'R$299,90'}, {n:'KL Semanal', p:'R$300,00'},
-            {n:'KL Mensal', p:'R$649,90'}, {n:'KL Vitalício', p:'R$1.500,00'}, {n:'KL V4.5', p:'R$1.500,00'},
-            {n:'KL V5.1.0', p:'R$2.500,00'}, {n:'Esquema Honda', p:'R$850,00'}
+            {n:'Clonador', p:'R$69,90'}, {n:'Combo', p:'R$299,90'}, {n:'KL V4.2 Semanal', p:'R$150,00'},
+            {n:'KL V4.2 Mensal', p:'R$350,00'}, {n:'KL V4.5', p:'R$449,90'},
+            {n:'KL V5.1.0', p:'R$749,90'}, {n:'BYPASS', p:'R$350,00'}, {n:'Esquema Honda', p:'R$449,00'},
+            {n:'Deepfake', p:'R$299,00'}
         ];
         const fn = ['Carlos','Ana','João','Maria','Pedro','Fernanda'];
         const fi = ['S.','M.','P.','R.','F.'];
