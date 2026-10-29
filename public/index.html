@@ -8,7 +8,7 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Referrer-Policy" content="no-referrer">
-    <meta name="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
     <meta name="theme-color" content="#0a0a12">
     <meta name="color-scheme" content="dark">
     <meta http-equiv="Content-Security-Policy" content="
@@ -16,7 +16,7 @@
         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://cdnjs.cloudflare.com;
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
         font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:;
-        img-src 'self' data: https://www.facebook.com https://*.fbcdn.net https://api.qrserver.com;
+        img-src 'self' data: https://www.facebook.com https://*.fbcdn.net https://api.qrserver.com https://img.youtube.com;
         connect-src 'self' https://www.googletagmanager.com https://connect.facebook.net https://api.qrserver.com;
         frame-src 'self' https://www.youtube.com;
         media-src 'self' data:;
@@ -70,6 +70,12 @@
             --red: #ef4444;
             --gold: #f59e0b;
             --gold-dark: #d97706;
+            
+            /* Cores Black November */
+            --bf-red: #ef4444;
+            --bf-red-dark: #b91c1c;
+            --bf-orange: #f97316;
+
             --dark: #0a0a12;
             --darker: #05050a;
             --card: #11111c;
@@ -99,7 +105,7 @@
             color: var(--light);
             font-family: 'Inter', sans-serif;
             line-height: 1.7;
-            padding-top: 76px;
+            padding-top: 116px; /* Ajustado por causa do Banner BF */
             overflow-x: hidden;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -146,12 +152,28 @@
             user-select: text;
         }
 
+        /* Banner Black Friday */
+        .bf-banner {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: linear-gradient(90deg, #7f1d1d, var(--bf-red), var(--bf-orange));
+            color: white;
+            text-align: center;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            z-index: 1002;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
         header {
             background-color: rgba(10, 10, 18, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             position: fixed;
-            top: 0;
+            top: 40px; /* Altura do Banner BF */
             left: 0;
             width: 100%;
             z-index: 1000;
@@ -245,8 +267,8 @@
             left: -20%;
             width: 140%;
             height: 180%;
-            background: radial-gradient(circle at 30% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 45%),
-                        radial-gradient(circle at 70% 60%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+            background: radial-gradient(circle at 30% 30%, rgba(239, 68, 68, 0.15) 0%, transparent 45%),
+                        radial-gradient(circle at 70% 60%, rgba(124, 58, 237, 0.08) 0%, transparent 40%);
             z-index: -1;
             pointer-events: none;
             animation: heroGlow 8s ease-in-out infinite alternate;
@@ -352,6 +374,14 @@
 
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 35px var(--primary-glow); }
 
+        .btn-bf {
+            background: linear-gradient(135deg, var(--bf-red), var(--bf-orange));
+            color: white;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-bf:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(239, 68, 68, 0.5); }
+
         .btn-secondary {
             background-color: transparent;
             color: var(--light);
@@ -379,8 +409,8 @@
         }
 
         .promo-timer {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(139, 92, 246, 0.04));
-            border: 1.5px solid rgba(245, 158, 11, 0.25);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(249, 115, 22, 0.04));
+            border: 1.5px solid rgba(239, 68, 68, 0.25);
             border-radius: 50px;
             padding: 16px 28px;
             margin: 0 auto 50px;
@@ -389,11 +419,11 @@
             align-items: center;
             justify-content: center;
             gap: 18px;
-            box-shadow: 0 4px 25px rgba(245, 158, 11, 0.1);
+            box-shadow: 0 4px 25px rgba(239, 68, 68, 0.1);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
-        .promo-timer i { color: var(--gold); font-size: 1.7rem; }
+        .promo-timer i { color: var(--bf-red); font-size: 1.7rem; }
         .timer-text { font-size: 1.1rem; font-weight: 600; color: var(--light); white-space: nowrap; }
         .timer-clock {
             background: var(--darker);
@@ -402,9 +432,9 @@
             font-family: 'Space Grotesk', monospace;
             font-size: 1.7rem;
             font-weight: 700;
-            color: var(--gold);
+            color: var(--bf-red);
             letter-spacing: 2px;
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
         .section { padding: 70px 0; }
@@ -495,6 +525,7 @@
         .badge-promo-limitada { background: #ef4444; color: white; box-shadow: 0 0 14px rgba(239, 68, 68, 0.5); border: 1px solid #fca5a5; }
         .badge-desconto { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 0 14px rgba(16, 185, 129, 0.5); }
         .badge-bypass { background: linear-gradient(135deg, #22c55e, #059669); color: white; box-shadow: 0 0 14px rgba(34, 197, 94, 0.5); border: 1px solid #86efac; }
+        .badge-vitalicio { background: linear-gradient(135deg, #10b981, #059669); color: white; border: 1px solid #34d399; box-shadow: 0 0 10px rgba(16,185,129,0.4); }
 
         .product-image {
             height: 170px;
@@ -643,7 +674,8 @@
             box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
         }
 
-        .video-container {
+        /* Video Lazy Load System */
+        .video-wrapper {
             margin: 14px 0 12px;
             border-radius: var(--radius-sm);
             overflow: hidden;
@@ -652,9 +684,58 @@
             padding-bottom: 56.25%;
             height: 0;
             border: 1px solid var(--border);
+            cursor: pointer;
         }
 
-        .video-container iframe {
+        .video-thumbnail {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .video-wrapper:hover .video-thumbnail {
+            opacity: 1;
+            transform: scale(1.03);
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            background: rgba(239, 68, 68, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .video-wrapper:hover .play-btn {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #ff0000;
+        }
+
+        .video-overlay-text {
+            position: absolute;
+            bottom: 10px; left: 10px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            z-index: 2;
+        }
+
+        .video-iframe {
             position: absolute;
             top: 0; left: 0;
             width: 100%;
@@ -1351,50 +1432,6 @@
 
         .pix-cpf-fixo .cpf-copy-btn:hover { color: var(--primary-light); background: rgba(124, 58, 237, 0.1); }
 
-        .welcome-banner {
-            position: fixed;
-            top: 76px;
-            left: 0;
-            width: 100%;
-            z-index: 999;
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(245, 158, 11, 0.9));
-            padding: 10px 20px;
-            text-align: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .welcome-banner .coupon-code {
-            background: rgba(0,0,0,0.3);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-family: 'Space Grotesk', monospace;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .welcome-banner .coupon-code:hover { background: rgba(0,0,0,0.5); }
-
-        .welcome-banner .close-banner {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-
-        .welcome-banner .close-banner:hover { color: #ddd; }
-
         .support-fab {
             position: fixed;
             bottom: 100px;
@@ -1550,12 +1587,11 @@
         }
 
         @media (max-width: 768px) {
-            body { padding-top: 64px; }
+            body { padding-top: 104px; }
             .header-container { padding: 12px 0; }
-            .welcome-banner { top: 64px; font-size: 0.8rem; padding: 8px 15px; }
             .nav-links {
                 position: fixed;
-                top: 64px;
+                top: 104px;
                 left: 0;
                 width: 100%;
                 background-color: rgba(10, 10, 18, 0.98);
@@ -1587,7 +1623,7 @@
             .support-fab { bottom: 88px; right: 14px; }
             .support-btn { width: 50px; height: 50px; font-size: 1.5rem; }
             .support-fab .support-label { font-size: 0.55rem; padding: 3px 8px; }
-            .promo-timer { padding: 12px 16px; gap: 10px; }
+            .promo-timer { padding: 12px 16px; gap: 10px; flex-wrap: wrap; text-align: center; }
             .timer-text { font-size: 0.9rem; }
             .timer-clock { font-size: 1.3rem; padding: 4px 12px; }
             .payment-tabs { grid-template-columns: 1fr; gap: 8px; }
@@ -1606,18 +1642,15 @@
             .support-btn { width: 44px; height: 44px; font-size: 1.3rem; }
             .pix-cpf-fixo .cpf-value { font-size: 0.72rem; padding: 3px 8px; }
             .crypto-amount { font-size: 1.6rem; }
-            .welcome-banner { font-size: 0.75rem; }
+            .bf-banner { font-size: 0.7rem; padding: 8px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="welcomeBanner" class="welcome-banner">
-        <i class="fas fa-gift"></i>
-        <span>Bem-vindo! Use o cupom</span>
-        <span class="coupon-code" id="welcomeCouponCode">BEMVINDO5</span>
-        <span>para R$5 de desconto em qualquer produto</span>
-        <button class="close-banner" id="closeBanner" aria-label="Fechar">&times;</button>
+    <!-- Banner Black Friday -->
+    <div class="bf-banner">
+        <i class="fas fa-fire"></i> BLACK NOVEMBER: Ofertas Especiais de Novembro <i class="fas fa-fire"></i>
     </div>
 
     <header id="mainHeader">
@@ -1655,8 +1688,8 @@
                 <div class="badge"><i class="fas fa-gem"></i><span>Garantia de 7 Dias</span></div>
             </div>
             <div class="hero-cta">
-                <a href="#products" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Ver Ferramentas</a>
-                <a href="#kl-remota" class="btn btn-gold"><i class="fas fa-crown"></i> KL Remota BT MOB</a>
+                <a href="#products" class="btn btn-bf"><i class="fas fa-shopping-cart"></i> Ver Ferramentas</a>
+                <a href="#kl-remota" class="btn btn-primary"><i class="fas fa-crown"></i> KL Remota BT MOB</a>
             </div>
         </div>
     </section>
@@ -1714,6 +1747,11 @@
                             <div class="feature"><i class="fas fa-check"></i><span>Uso ilimitado sem restrições</span></div>
                             <div class="feature"><i class="fas fa-check"></i><span>Atualizações gratuitas</span></div>
                         </div>
+                        <div class="video-wrapper" onclick="loadVideo(this, 'DfJgaduP4KM', 39)">
+                            <img src="https://img.youtube.com/vi/DfJgaduP4KM/hqdefault.jpg" class="video-thumbnail" alt="Tutorial ManyCam">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial: ManyCam PRO</div>
+                        </div>
                         <div class="product-actions">
                             <button class="btn btn-primary btn-buy" data-product="ManyCam PRO" data-price="39.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                         </div>
@@ -1735,6 +1773,11 @@
                             <div class="feature"><i class="fas fa-check"></i><span>Requer ManyCam instalado</span></div>
                             <div class="feature"><i class="fas fa-check"></i><span>Sem bordas pretas</span></div>
                             <div class="feature"><i class="fas fa-check"></i><span>Configuração simples</span></div>
+                        </div>
+                        <div class="video-wrapper" onclick="loadVideo(this, 'dxdpPRZYGLE', 32)">
+                            <img src="https://img.youtube.com/vi/dxdpPRZYGLE/hqdefault.jpg" class="video-thumbnail" alt="Tutorial Tela Cheia">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial: Método Tela Cheia</div>
                         </div>
                         <div class="product-actions">
                             <button class="btn btn-primary btn-buy" data-product="Método Tela Cheia WhatsApp" data-price="29.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
@@ -1758,7 +1801,11 @@
                             <div class="feature"><i class="fas fa-check"></i><span>Rodapé personalizável</span></div>
                             <div class="feature"><i class="fas fa-check"></i><span>Múltiplos links de substituição</span></div>
                         </div>
-                        <div class="video-container"><iframe src="https://www.youtube.com/embed/HmgPtpo80vM" frameborder="0" allowfullscreen></iframe></div>
+                        <div class="video-wrapper" onclick="loadVideo(this, 'HmgPtpo80vM')">
+                            <img src="https://img.youtube.com/vi/HmgPtpo80vM/hqdefault.jpg" class="video-thumbnail" alt="Tutorial Espelhador">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial: Espelhador de Canais</div>
+                        </div>
                         <div class="product-actions">
                             <button class="btn btn-primary btn-buy" data-product="Espelhador de Canais" data-price="69.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                             <a href="https://www.youtube.com/watch?v=HmgPtpo80vM" target="_blank" class="btn btn-secondary btn-small"><i class="fab fa-youtube"></i> Ver Tutorial</a>
@@ -1782,7 +1829,11 @@
                             <div class="feature"><i class="fas fa-check"></i><span>Sem limite de uso</span></div>
                             <div class="feature"><i class="fas fa-check"></i><span>Filtros avançados</span></div>
                         </div>
-                        <div class="video-container"><iframe src="https://www.youtube.com/embed/S65f1lhob8w?start=2" frameborder="0" allowfullscreen></iframe></div>
+                        <div class="video-wrapper" onclick="loadVideo(this, 'S65f1lhob8w', 2)">
+                            <img src="https://img.youtube.com/vi/S65f1lhob8w/hqdefault.jpg" class="video-thumbnail" alt="Tutorial Clonador">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial: Clonador de Canais</div>
+                        </div>
                         <div class="product-actions">
                             <button class="btn btn-primary btn-buy" data-product="Clonador de Canais" data-price="69.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                             <a href="https://www.youtube.com/watch?v=S65f1lhob8w&t=2s" target="_blank" class="btn btn-secondary btn-small"><i class="fab fa-youtube"></i> Ver Tutorial</a>
@@ -1806,7 +1857,11 @@
                             <div class="feature"><i class="fas fa-check"></i><span>Agilidade e proteção</span></div>
                             <div class="feature"><i class="fas fa-check"></i><span>Múltiplos formatos</span></div>
                         </div>
-                        <div class="video-container"><iframe src="https://www.youtube.com/embed/O8DK-F4r6hw?start=3" frameborder="0" allowfullscreen></iframe></div>
+                        <div class="video-wrapper" onclick="loadVideo(this, 'O8DK-F4r6hw', 3)">
+                            <img src="https://img.youtube.com/vi/O8DK-F4r6hw/hqdefault.jpg" class="video-thumbnail" alt="Tutorial Editor">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial: Editor de Mídia</div>
+                        </div>
                         <div class="product-actions">
                             <button class="btn btn-primary btn-buy" data-product="Editor de Mídia em Massa" data-price="32.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                             <a href="https://www.youtube.com/watch?v=O8DK-F4r6hw&t=3s" target="_blank" class="btn btn-secondary btn-small"><i class="fab fa-youtube"></i> Ver Tutorial</a>
@@ -1869,6 +1924,11 @@
                             <div class="feature"><i class="fas fa-check"></i><span>Entrega automática após confirmação</span></div>
                             <div class="feature"><i class="fas fa-check"></i><span>Pacotes sob demanda</span></div>
                         </div>
+                        <div class="video-wrapper" onclick="loadVideo(this, 'zava6nnzdOg')">
+                            <img src="https://img.youtube.com/vi/zava6nnzdOg/hqdefault.jpg" class="video-thumbnail" alt="Tutorial Telegram">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial: Membros Telegram</div>
+                        </div>
                         <div class="product-actions">
                             <select id="telegram-members-option" class="select-option">
                                 <option value="33.00" data-product="1.000 membros para Telegram">1.000 membros — R$33,00</option>
@@ -1908,6 +1968,11 @@
                             <div class="feature"><i class="fas fa-camera-retro"></i><span>📱 Ver câmera em tempo real</span></div>
                             <div class="feature"><i class="fas fa-check-circle"></i><span>🔓 Bypass incluso</span></div>
                         </div>
+                        <div class="video-wrapper" onclick="loadVideo(this, '2_kkei-jfFc')">
+                            <img src="https://img.youtube.com/vi/2_kkei-jfFc/hqdefault.jpg" class="video-thumbnail" alt="Tutorial V4.2">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial de instalação — V4.2</div>
+                        </div>
                         <select class="select-option" id="kl-special-select">
                             <option value="150.00" data-product="KL REMOTA BT MOB V4.2 (Semanal)">Semanal - R$ 150,00</option>
                             <option value="350.00" data-product="KL REMOTA BT MOB V4.2 (Mensal)">Mensal - R$ 350,00</option>
@@ -1919,10 +1984,10 @@
                 </div>
 
                 <div class="product-card special-card">
-                    <div class="product-badge badge-special">⭐ V4.5</div>
+                    <div class="product-badge badge-special">⭐ V4.6</div>
                     <div class="product-image"><i class="fas fa-server"></i></div>
                     <div class="product-info">
-                        <h3>KL REMOTA BT MOB V4.5</h3>
+                        <h3>KL REMOTA BT MOB V4.6</h3>
                         <div class="product-features">
                             <div class="feature"><i class="fas fa-check-circle"></i><span>🖥️ Instalação inclusa</span></div>
                             <div class="feature"><i class="fas fa-key"></i><span>⌨️ Keylogger avançado</span></div>
@@ -1930,11 +1995,16 @@
                             <div class="feature"><i class="fas fa-eye"></i><span>👁️ Monitoramento remoto</span></div>
                             <div class="feature"><i class="fas fa-shield-alt"></i><span>🛡️ Bypass atualizado</span></div>
                         </div>
+                        <div class="video-wrapper" onclick="loadVideo(this, '51AJCEad5cc')">
+                            <img src="https://img.youtube.com/vi/51AJCEad5cc/hqdefault.jpg" class="video-thumbnail" alt="Tutorial V4.6">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial de instalação — V4.6</div>
+                        </div>
                         <select class="select-option" id="kl-v45-select">
-                            <option value="449.90" data-product="KL REMOTA BT MOB V4.5 (Mensal)">Mensal - R$ 449,90</option>
+                            <option value="449.90" data-product="KL REMOTA BT MOB V4.6 (Mensal)">Mensal - R$ 449,90</option>
                         </select>
                         <div class="product-actions">
-                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-v45-buy" data-product="KL REMOTA BT MOB V4.5 (Mensal)" data-price="449.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
+                            <button class="btn btn-primary btn-buy btn-special-buy" id="kl-v45-buy" data-product="KL REMOTA BT MOB V4.6 (Mensal)" data-price="449.90"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
                         </div>
                     </div>
                 </div>
@@ -1951,6 +2021,11 @@
                             <div class="feature"><i class="fas fa-download"></i><span>🔧 Instalação inclusa</span></div>
                             <div class="feature"><i class="fas fa-users"></i><span>👥 Até 3 usuários simultâneos</span></div>
                             <div class="feature"><i class="fas fa-check-circle"></i><span>✅ Última atualização</span></div>
+                        </div>
+                        <div class="video-wrapper" onclick="loadVideo(this, '2_kkei-jfFc')">
+                            <img src="https://img.youtube.com/vi/2_kkei-jfFc/hqdefault.jpg" class="video-thumbnail" alt="Tutorial V5.1.0">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial KL Remota</div>
                         </div>
                         <select class="select-option" id="kl-v510-select">
                             <option value="749.90" data-product="KL REMOTA BT MOB V5.1.0 (Mensal)">Mensal - R$ 749,90</option>
@@ -2037,7 +2112,7 @@
                 </div>
 
                 <div class="product-card special-card">
-                    <div class="product-badge badge-promo-limitada">🔥 PROMO LIMITADA</div>
+                    <div class="product-badge badge-vitalicio">LICENÇA VITALÍCIA</div>
                     <div class="product-image"><i class="fas fa-robot"></i></div>
                     <div class="product-info">
                         <h3>DEEPFAKE EM TEMPO REAL</h3>
@@ -2049,6 +2124,11 @@
                         <div class="product-features">
                             <div class="feature"><i class="fas fa-check-circle"></i><span>🎭 Software vitalício</span></div>
                             <div class="feature"><i class="fas fa-download"></i><span>⚙️ Instalação inclusa</span></div>
+                        </div>
+                        <div class="video-wrapper" onclick="loadVideo(this, '455uat8Dl_g')">
+                            <img src="https://img.youtube.com/vi/455uat8Dl_g/hqdefault.jpg" class="video-thumbnail" alt="Tutorial Deepfake">
+                            <div class="play-btn"><i class="fas fa-play"></i></div>
+                            <div class="video-overlay-text">Tutorial de instalação — Deepfake</div>
                         </div>
                         <div class="product-actions">
                             <button class="btn btn-primary btn-buy btn-special-buy" data-product="DEEPFAKE EM TEMPO REAL" data-price="299.00"><i class="fas fa-shopping-cart"></i> Comprar Agora</button>
@@ -2192,11 +2272,15 @@
             </div>
             <div class="faq-item">
                 <div class="faq-question"><span>Qual a diferença entre as versões da KL Remota BT MOB?</span><i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer"><p>A <strong>V4.2</strong> oferece o básico com bypass incluso (semanal R$ 150 / mensal R$ 350). A <strong>V4.5</strong> inclui instalação completa e keylogger avançado (mensal R$ 449,90). A <strong>V5.1.0</strong> é a mais avançada, com otimização zero delay, Gpay incluso, bypass completo e suporte para até 3 usuários simultâneos (mensal R$ 749,90). Além disso, temos o <strong>BYPASS PREMIUM</strong> por R$ 350,00 — sem tela preta, passa em todos os bancos (Nubank, Itaú, Sicredi, etc.), atualizado em Novembro de 2026 e funciona com qualquer KL.</p></div>
+                <div class="faq-answer"><p>A <strong>V4.2</strong> oferece o básico com bypass incluso (semanal R$ 150 / mensal R$ 350). A <strong>V4.6</strong> inclui instalação completa e keylogger avançado (mensal R$ 449,90). A <strong>V5.1.0</strong> é a mais avançada, com otimização zero delay, Gpay incluso, bypass completo e suporte para até 3 usuários simultâneos (mensal R$ 749,90). Além disso, temos o <strong>BYPASS PREMIUM</strong> por R$ 350,00 — sem tela preta, passa em todos os bancos (Nubank, Itaú, Sicredi, etc.), atualizado em Novembro de 2026 e funciona com qualquer KL.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question"><span>O que é o BYPASS PREMIUM?</span><i class="fas fa-chevron-down"></i></div>
                 <div class="faq-answer"><p>O <strong>BYPASS PREMIUM</strong> é uma solução de bypass de última geração, sem tela preta, que funciona em todos os bancos (Nubank, Itaú, Sicredi, entre outros). Foi atualizado em Novembro de 2026 e é compatível com qualquer versão de KL. Preço: R$ 350,00.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span>O Deepfake tem mensalidade?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Não. A licença do Deepfake é vitalícia. Você paga uma única vez e tem acesso contínuo ao software.</p></div>
             </div>
             <div class="faq-item">
                 <div class="faq-question"><span>Posso pagar com criptomoedas?</span><i class="fas fa-chevron-down"></i></div>
@@ -2389,7 +2473,7 @@
             '10.000 membros para Telegram': 275.00,
             'KL REMOTA BT MOB V4.2 (Semanal)': 150.00,
             'KL REMOTA BT MOB V4.2 (Mensal)': 350.00,
-            'KL REMOTA BT MOB V4.5 (Mensal)': 449.90,
+            'KL REMOTA BT MOB V4.6 (Mensal)': 449.90,
             'KL REMOTA BT MOB V5.1.0 (Mensal)': 749.90,
             'BYPASS': 350.00,
             'ESQUEMA HONDA': 449.00,
@@ -2401,6 +2485,15 @@
         });
 
         Object.defineProperty(window, 'OFFICIAL_PRICES', { value: OFFICIAL_PRICES, writable: false, configurable: false });
+
+        window.loadVideo = function(element, videoId, startTime) {
+            if (startTime === undefined) startTime = 0;
+            let embedUrl = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+            if (startTime > 0) embedUrl += '&start=' + startTime;
+            element.innerHTML = '<iframe class="video-iframe" src="' + embedUrl + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            element.style.cursor = 'default';
+            element.onclick = null;
+        };
 
         function validatePrice(productName, price) {
             const officialPrice = OFFICIAL_PRICES[productName];
@@ -2447,12 +2540,11 @@
         integrityObserver.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['data-price'] });
 
         const COUPON_CODE = 'COLAB5';
-        const WELCOME_COUPON = 'BEMVINDO5';
         const DISCOUNT = 0.05;
-        const WELCOME_DISCOUNT = 5.00;
         const USDT_RATE = 5.50;
 
-        function startPromoTimer(duration = 15 * 60) {
+        function startPromoTimer(duration) {
+            if (duration === undefined) duration = 15 * 60;
             const timerEl = document.getElementById('promoTimer');
             let time = duration;
             function updateTimer() {
@@ -2478,21 +2570,6 @@
             t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3500);
         }
-
-        const welcomeBanner = document.getElementById('welcomeBanner');
-        const closeBanner = document.getElementById('closeBanner');
-        const welcomeCouponCode = document.getElementById('welcomeCouponCode');
-
-        closeBanner.addEventListener('click', () => { welcomeBanner.style.display = 'none'; });
-
-        welcomeCouponCode.addEventListener('click', async () => {
-            try {
-                await navigator.clipboard.writeText(WELCOME_COUPON);
-                showToast('Cupom copiado! Use no checkout.', 'info');
-            } catch {
-                showToast('Copie manualmente: ' + WELCOME_COUPON, 'info');
-            }
-        });
 
         const cpfInput = document.getElementById('inputCPF');
         const phoneInput = document.getElementById('inputPhone');
@@ -2663,12 +2740,6 @@
                 currentProduct.price = newPrice;
                 updateCryptoAmount();
                 showToast('Cupom aplicado! 5% de desconto.', 'success');
-            } else if (coupon === WELCOME_COUPON) {
-                const newPrice = Math.max(0, originalPrice - WELCOME_DISCOUNT);
-                document.getElementById('modalProductPrice').textContent = 'R$' + newPrice.toFixed(2).replace('.',',');
-                currentProduct.price = newPrice;
-                updateCryptoAmount();
-                showToast('Cupom de boas-vindas aplicado! R$5 de desconto.', 'success');
             } else {
                 currentProduct.price = originalPrice;
                 document.getElementById('modalProductPrice').textContent = 'R$' + originalPrice.toFixed(2).replace('.',',');
@@ -2897,7 +2968,7 @@
             if (this.classList.contains('btn-buy') || this.classList.contains('footer-buy-link')) return;
             e.preventDefault();
             const t = document.querySelector(this.getAttribute('href'));
-            if (t) window.scrollTo({ top: t.offsetTop - 76, behavior: 'smooth' });
+            if (t) window.scrollTo({ top: t.offsetTop - 100, behavior: 'smooth' });
         }));
 
         document.querySelectorAll('.faq-item').forEach(item =>
@@ -2943,7 +3014,7 @@
         const fp = [
             {n:'ManyCam + Método', p:'R$49,90'}, {n:'ManyCam PRO', p:'R$39,90'}, {n:'Espelhador', p:'R$69,90'},
             {n:'Clonador', p:'R$69,90'}, {n:'Combo', p:'R$299,90'}, {n:'KL V4.2 Semanal', p:'R$150,00'},
-            {n:'KL V4.2 Mensal', p:'R$350,00'}, {n:'KL V4.5', p:'R$449,90'},
+            {n:'KL V4.2 Mensal', p:'R$350,00'}, {n:'KL V4.6', p:'R$449,90'},
             {n:'KL V5.1.0', p:'R$749,90'}, {n:'BYPASS', p:'R$350,00'}, {n:'Esquema Honda', p:'R$449,00'},
             {n:'Deepfake', p:'R$299,00'}
         ];
